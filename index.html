@@ -570,8 +570,9 @@
 
         .progress-container {
             position: relative;
-            width: 84px;
-            height: 84px;
+            width: 100%;
+            max-width: 84px;
+            aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -579,8 +580,9 @@
 
         .progress-ring {
             transform: rotate(-90deg);
-            width: 84px;
-            height: 84px;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         .progress-ring-bg {
@@ -989,8 +991,12 @@
 
         /* Responsive adaptations */
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
             .app-container {
-                padding: 18px;
+                padding: 16px;
             }
 
             .header h1 {
@@ -1015,27 +1021,12 @@
                 gap: 8px;
             }
 
-            .progress-container {
-                width: 72px;
-                height: 72px;
-            }
-
-            .progress-ring {
-                width: 72px;
-                height: 72px;
-            }
-
-            .progress-ring-circle {
-                stroke-dasharray: 201.06;
-                stroke-dashoffset: 201.06;
-            }
-
             .countdown-number {
-                font-size: 16px;
+                font-size: 14px;
             }
 
             .countdown-label {
-                font-size: 10px;
+                font-size: 9px;
                 margin-top: 4px;
             }
 
@@ -1380,7 +1371,7 @@
                 <!-- Days -->
                 <div class="countdown-box">
                     <div class="progress-container">
-                        <svg class="progress-ring">
+                        <svg class="progress-ring" viewBox="0 0 84 84">
                             <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42"
                                 cy="42" />
                             <circle class="progress-ring-circle" id="ring-days" stroke-width="5" fill="transparent"
@@ -1394,7 +1385,7 @@
                 <!-- Hours -->
                 <div class="countdown-box">
                     <div class="progress-container">
-                        <svg class="progress-ring">
+                        <svg class="progress-ring" viewBox="0 0 84 84">
                             <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42"
                                 cy="42" />
                             <circle class="progress-ring-circle" id="ring-hours" stroke-width="5" fill="transparent"
@@ -1408,7 +1399,7 @@
                 <!-- Minutes -->
                 <div class="countdown-box">
                     <div class="progress-container">
-                        <svg class="progress-ring">
+                        <svg class="progress-ring" viewBox="0 0 84 84">
                             <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42"
                                 cy="42" />
                             <circle class="progress-ring-circle" id="ring-minutes" stroke-width="5" fill="transparent"
@@ -1422,7 +1413,7 @@
                 <!-- Seconds -->
                 <div class="countdown-box">
                     <div class="progress-container">
-                        <svg class="progress-ring">
+                        <svg class="progress-ring" viewBox="0 0 84 84">
                             <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42"
                                 cy="42" />
                             <circle class="progress-ring-circle" id="ring-seconds" stroke-width="5" fill="transparent"
