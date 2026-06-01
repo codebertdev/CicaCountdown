@@ -332,6 +332,34 @@
             }
         }
 
+        .sleep-z {
+            position: absolute;
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 3;
+            animation: floatUpZ 2.5s ease-in-out forwards;
+        }
+
+        @keyframes floatUpZ {
+            0% {
+                transform: translate(0, 0) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(15px, -60px) scale(1) rotate(-10deg);
+            }
+            100% {
+                transform: translate(-10px, -140px) scale(1.4) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
         /* Falling treats */
         .treat-svg {
             position: absolute;
@@ -1650,6 +1678,13 @@
             // Confetti setup
             Confetti.init("confetti-canvas");
 
+            // Sleep & idle events tracking
+            const activityEvents = ["mousemove", "click", "touchstart", "keypress"];
+            activityEvents.forEach(evt => {
+                document.addEventListener(evt, resetSleepTimer, { passive: true });
+            });
+            resetSleepTimer();
+
             updateCountdown();
 
             // Start clock interval
@@ -1772,6 +1807,11 @@
 
         // Pet Cat interaction
         function petCat() {
+            // Haptic vibration feedback for mobile devices (purr sensation)
+            if (navigator.vibrate) {
+                navigator.vibrate([35, 80, 45, 80, 35]);
+            }
+
             // Eye animation
             setCatEyes("happy");
 
@@ -1833,21 +1873,90 @@
                     setTimeout(() => {
                         heart.remove();
                     }, 1200);
-                }, i * 150);
             }
         }
 
+        // Spawns a floating "Z" letter when cat is sleeping
+        function spawnZ() {
+            const rect = cicaMascot.getBoundingClientRect();
+            const playgroundRect = playground.getBoundingClientRect();
+
+            const catCenterX = rect.left - playgroundRect.left + (rect.width / 2);
+            const catCenterY = rect.top - playgroundRect.top + (rect.height / 3);
+
+            const zEl = document.createElement("div");
+            zEl.className = "sleep-z";
+            zEl.textContent = Math.random() > 0.4 ? "z" : "Z";
+
+            // Offset to the right of the head where bubbles would pop
+            const driftX = 10 + (Math.random() * 20);
+            zEl.style.left = `${catCenterX + driftX}px`;
+            zEl.style.top = `${catCenterY - 30}px`;
+
+            // Random sizes
+            const fontSize = 10 + Math.random() * 12;
+            zEl.style.fontSize = `${fontSize}px`;
+
+            heartsLayer.appendChild(zEl);
+
+            // Clean up Z element after floatUpZ ends
+            setTimeout(() => {
+                zEl.remove();
+            }, 2500);
+        }
+
+        let sleepTimeout = null;
+        let sleepInterval = null;
+        let isSleeping = false;
+
+        function resetSleepTimer() {
+            if (isSleeping) {
+                wakeUpCat();
+            }
+            clearTimeout(sleepTimeout);
+            sleepTimeout = setTimeout(goToSleep, 15000); // 15 seconds
+        }
+
+        function goToSleep() {
+            if (isSleeping) return;
+            isSleeping = true;
+            setCatEyes("blink");
+            showCatBubble("Zzz...", true);
+
+            if (sleepInterval) clearInterval(sleepInterval);
+            sleepInterval = setInterval(() => {
+                if (!isSleeping) {
+                    clearInterval(sleepInterval);
+                    return;
+                }
+                spawnZ();
+            }, 1800);
+        }
+
+        function wakeUpCat() {
+            if (!isSleeping) return;
+            isSleeping = false;
+            if (sleepInterval) {
+                clearInterval(sleepInterval);
+                sleepInterval = null;
+            }
+            setCatEyes("normal");
+            showCatBubble("Miau!", false);
+        }
+
         // Cat speech bubble utility
-        function showCatBubble(text) {
+        function showCatBubble(text, persist = false) {
             if (bubbleTimeout) {
                 clearTimeout(bubbleTimeout);
             }
             catBubble.textContent = text;
             catBubble.classList.add("active");
 
-            bubbleTimeout = setTimeout(() => {
-                catBubble.classList.remove("active");
-            }, 2500);
+            if (!persist) {
+                bubbleTimeout = setTimeout(() => {
+                    catBubble.classList.remove("active");
+                }, 2500);
+            }
         }
 
         // Set eye state
