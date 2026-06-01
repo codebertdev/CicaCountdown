@@ -36,15 +36,16 @@
             --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
-            /* Cat theme colors */
-            --cat-color-light: #52525b;
-            --cat-color-dark: #27272a;
-            --cat-ear-inner: #fecdd3;
-            --cat-chest-color: #f4f4f5;
+            /* Cat theme colors - Black Kitten with Tabby Undercoat & White paw details */
+            --cat-color-light: #252528;
+            --cat-color-dark: #0f0f10;
+            --cat-ear-inner: #9f7b88;
+            --cat-chest-color: #1a1a1c;
+            --cat-stripe-color: #38383c;
             --cat-eye-color: #eab308;
-            --cat-nose-color: #fecdd3;
-            --cat-mouth-color: #71717a;
-            --cat-whisker-color: #d4d4d8;
+            --cat-nose-color: #27272a;
+            --cat-mouth-color: #52525b;
+            --cat-whisker-color: #3f3f46;
         }
 
         [data-theme="dark"] {
@@ -67,14 +68,15 @@
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
 
             /* Cat theme adjustments */
-            --cat-color-light: #3f3f46;
-            --cat-color-dark: #18181b;
-            --cat-ear-inner: #fda4af;
-            --cat-chest-color: #e4e4e7;
+            --cat-color-light: #252528;
+            --cat-color-dark: #09090a;
+            --cat-ear-inner: #8c6c77;
+            --cat-chest-color: #151517;
+            --cat-stripe-color: #323236;
             --cat-eye-color: #facc15;
-            --cat-nose-color: #fda4af;
-            --cat-mouth-color: #52525b;
-            --cat-whisker-color: #3f3f46;
+            --cat-nose-color: #1e1e20;
+            --cat-mouth-color: #44444a;
+            --cat-whisker-color: #333338;
         }
 
         * {
@@ -1026,17 +1028,33 @@
                         fill="url(#catBodyGrad)" />
                 </g>
 
-                <!-- Main Body -->
-                <ellipse class="cat-body" cx="100" cy="140" rx="42" ry="32" fill="url(#catBodyGrad)"
+                <!-- Body Tabby Stripes (Undercoat) -->
+                <path class="cat-tabby-body-left" d="M 72 134 Q 80 137 83 143 M 74 142 Q 81 144 84 148" fill="none" stroke="var(--cat-stripe-color)" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+                <path class="cat-tabby-body-right" d="M 128 134 Q 120 137 117 143 M 126 142 Q 119 144 116 148" fill="none" stroke="var(--cat-stripe-color)" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+
+                <!-- Main Body (Smaller size for kitten proportion) -->
+                <ellipse class="cat-body" cx="100" cy="140" rx="34" ry="25" fill="url(#catBodyGrad)"
                     filter="url(#cat-shadow)" />
 
-                <!-- Chest Patch -->
-                <path class="cat-chest" d="M 82 124 C 82 112, 118 112, 118 124 C 118 142, 82 142, 82 124 Z"
+                <!-- Chest undercoat (subtle dark patch) -->
+                <path class="cat-chest" d="M 85 125 C 85 115, 115 115, 115 125 C 115 138, 85 138, 85 125 Z"
                     fill="var(--cat-chest-color)" opacity="0.95" />
 
-                <!-- Left & Right Paws -->
-                <rect class="cat-paw-left" x="78" y="153" width="14" height="18" rx="7" fill="url(#catBodyGrad)" />
-                <rect class="cat-paw-right" x="108" y="153" width="14" height="18" rx="7" fill="url(#catBodyGrad)" />
+                <!-- Left & Right Paws (Closer together with white paw hairs) -->
+                <g class="cat-paw-left-group">
+                    <rect class="cat-paw-left" x="82" y="152" width="12" height="16" rx="6" fill="url(#catBodyGrad)" />
+                    <!-- Tiny white hairs on feet -->
+                    <line x1="85" y1="162" x2="85" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                    <line x1="88" y1="163" x2="88" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                    <line x1="91" y1="162" x2="91" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                </g>
+                <g class="cat-paw-right-group">
+                    <rect class="cat-paw-right" x="106" y="152" width="12" height="16" rx="6" fill="url(#catBodyGrad)" />
+                    <!-- Tiny white hairs on feet -->
+                    <line x1="109" y1="162" x2="109" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                    <line x1="112" y1="163" x2="112" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                    <line x1="115" y1="162" x2="115" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+                </g>
 
                 <!-- Head Group (Pivots/Animates) -->
                 <g class="cat-head-group" id="cica-head">
@@ -1048,9 +1066,14 @@
                     <path class="cat-ear-right" d="M 134 78 L 148 42 L 112 60 Z" fill="url(#catBodyGrad)" />
                     <path class="cat-ear-right-inner" d="M 130 73 L 139 49 L 117 62 Z" fill="var(--cat-ear-inner)" />
 
-                    <!-- Round Head -->
+                    <!-- Round Head (Keep standard size so head looks larger, i.e., kitten proportion) -->
                     <circle class="cat-head" cx="100" cy="82" r="38" fill="url(#catBodyGrad)"
                         filter="url(#cat-shadow)" />
+
+                    <!-- Tabby Forehead M & Cheek Stripes (Subtle undercoat cirmos pattern) -->
+                    <path class="cat-tabby-m" d="M 94 56 L 97 64 L 100 58 L 103 64 L 106 56" fill="none" stroke="var(--cat-stripe-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />
+                    <path class="cat-tabby-cheek-left" d="M 68 85 L 75 83 M 67 90 L 73 87" fill="none" stroke="var(--cat-stripe-color)" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
+                    <path class="cat-tabby-cheek-right" d="M 132 85 L 125 83 M 133 90 L 127 87" fill="none" stroke="var(--cat-stripe-color)" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
 
                     <!-- Normal Eyes (Visible by default) -->
                     <g class="cat-eyes-normal" id="eyes-normal">
