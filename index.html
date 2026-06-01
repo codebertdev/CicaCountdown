@@ -45,7 +45,7 @@
             --cat-ear-inner: #9f7b88;
             --cat-chest-color: #1a1a1c;
             --cat-stripe-color: #38383c;
-            --cat-eye-color: #eab308;
+            --cat-eye-color: #acc674;
             --cat-nose-color: #27272a;
             --cat-mouth-color: #52525b;
             --cat-whisker-color: #3f3f46;
@@ -79,7 +79,7 @@
             --cat-ear-inner: #8c6c77;
             --cat-chest-color: #151517;
             --cat-stripe-color: #323236;
-            --cat-eye-color: #facc15;
+            --cat-eye-color: #bad385;
             --cat-nose-color: #1e1e20;
             --cat-mouth-color: #44444a;
             --cat-whisker-color: #333338;
@@ -1151,54 +1151,54 @@
                 </g>
 
                 <!-- Body Tabby Stripes (Undercoat) -->
-                <path class="cat-tabby-body-left" d="M 72 134 Q 80 137 83 143 M 74 142 Q 81 144 84 148" fill="none"
+                <path class="cat-tabby-body-left" d="M 76 132 Q 83 135 86 141" fill="none"
                     stroke="var(--cat-stripe-color)" stroke-width="2" stroke-linecap="round" opacity="0.5" />
-                <path class="cat-tabby-body-right" d="M 128 134 Q 120 137 117 143 M 126 142 Q 119 144 116 148"
+                <path class="cat-tabby-body-right" d="M 124 132 Q 117 135 114 141"
                     fill="none" stroke="var(--cat-stripe-color)" stroke-width="2" stroke-linecap="round"
                     opacity="0.5" />
 
                 <!-- Main Body (Smaller size for kitten proportion) -->
-                <ellipse class="cat-body" cx="100" cy="140" rx="34" ry="25" fill="url(#catBodyGrad)"
+                <ellipse class="cat-body" cx="100" cy="138" rx="28" ry="20" fill="url(#catBodyGrad)"
                     filter="url(#cat-shadow)" />
 
-                <!-- Chest undercoat (subtle dark patch) -->
-                <path class="cat-chest" d="M 85 125 C 85 115, 115 115, 115 125 C 115 138, 85 138, 85 125 Z"
+                <!-- Chest undercoat (subtle dark patch, soft chest fuzz) -->
+                <path class="cat-chest" d="M 88 122 C 88 114, 112 114, 112 122 C 112 134, 88 134, 88 122 Z"
                     fill="var(--cat-chest-color)" opacity="0.95" />
 
                 <!-- Left & Right Paws (Closer together with white paw hairs) -->
                 <g class="cat-paw-left-group">
-                    <rect class="cat-paw-left" x="82" y="152" width="12" height="16" rx="6" fill="url(#catBodyGrad)" />
+                    <rect class="cat-paw-left" x="83" y="128" width="10" height="34" rx="5" fill="url(#catBodyGrad)" />
                     <!-- Tiny white hairs on feet -->
-                    <line x1="85" y1="162" x2="85" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="85" y1="156" x2="85" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
-                    <line x1="88" y1="163" x2="88" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="88" y1="157" x2="88" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
-                    <line x1="91" y1="162" x2="91" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="91" y1="156" x2="91" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
                 </g>
                 <g class="cat-paw-right-group">
-                    <rect class="cat-paw-right" x="106" y="152" width="12" height="16" rx="6"
+                    <rect class="cat-paw-right" x="107" y="128" width="10" height="34" rx="5"
                         fill="url(#catBodyGrad)" />
                     <!-- Tiny white hairs on feet -->
-                    <line x1="109" y1="162" x2="109" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="109" y1="156" x2="109" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
-                    <line x1="112" y1="163" x2="112" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="112" y1="157" x2="112" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
-                    <line x1="115" y1="162" x2="115" y2="168" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
+                    <line x1="115" y1="156" x2="115" y2="161" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
                         opacity="0.9" />
                 </g>
 
                 <!-- Head Group (Pivots/Animates) -->
                 <g class="cat-head-group" id="cica-head">
-                    <!-- Left Ear -->
-                    <path class="cat-ear-left" d="M 66 78 L 52 42 L 88 60 Z" fill="url(#catBodyGrad)" />
-                    <path class="cat-ear-left-inner" d="M 70 73 L 59 49 L 83 62 Z" fill="var(--cat-ear-inner)" />
+                    <!-- Left Ear (Large & Pointed, flared outward like in photo) -->
+                    <path class="cat-ear-left" d="M 64 85 L 42 36 L 90 60 Z" fill="url(#catBodyGrad)" />
+                    <path class="cat-ear-left-inner" d="M 68 80 L 49 43 L 86 61 Z" fill="var(--cat-ear-inner)" />
 
-                    <!-- Right Ear -->
-                    <path class="cat-ear-right" d="M 134 78 L 148 42 L 112 60 Z" fill="url(#catBodyGrad)" />
-                    <path class="cat-ear-right-inner" d="M 130 73 L 139 49 L 117 62 Z" fill="var(--cat-ear-inner)" />
+                    <!-- Right Ear (Large & Pointed, flared outward like in photo) -->
+                    <path class="cat-ear-right" d="M 136 85 L 158 36 L 110 60 Z" fill="url(#catBodyGrad)" />
+                    <path class="cat-ear-right-inner" d="M 132 80 L 151 43 L 114 61 Z" fill="var(--cat-ear-inner)" />
 
-                    <!-- Round Head (Keep standard size so head looks larger, i.e., kitten proportion) -->
+                    <!-- Round Head (Large relative to body) -->
                     <circle class="cat-head" cx="100" cy="82" r="38" fill="url(#catBodyGrad)"
                         filter="url(#cat-shadow)" />
 
@@ -1211,66 +1211,64 @@
                     <path class="cat-tabby-cheek-right" d="M 132 85 L 125 83 M 133 90 L 127 87" fill="none"
                         stroke="var(--cat-stripe-color)" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
 
-                    <!-- Normal Eyes (Visible by default) -->
+                    <!-- Large, Expressive Kitten Eyes (Visible by default) -->
                     <g class="cat-eyes-normal" id="eyes-normal">
-                        <circle cx="86" cy="78" r="4.5" fill="var(--cat-eye-color)" />
-                        <circle cx="114" cy="78" r="4.5" fill="var(--cat-eye-color)" />
-                        <circle cx="84.5" cy="76.5" r="1.5" fill="#fff" />
-                        <circle cx="112.5" cy="76.5" r="1.5" fill="#fff" />
+                        <ellipse cx="84" cy="78" rx="8" ry="9" fill="var(--cat-eye-color)" />
+                        <ellipse cx="116" cy="78" rx="8" ry="9" fill="var(--cat-eye-color)" />
+                        <!-- Slit/oval pupils -->
+                        <ellipse cx="84" cy="78" rx="3.5" ry="7" fill="#000000" />
+                        <ellipse cx="116" cy="78" rx="3.5" ry="7" fill="#000000" />
+                        <!-- Multiple highlights for a glassy, lifelike kitten look -->
+                        <circle cx="81.5" cy="74.5" r="2.2" fill="#ffffff" />
+                        <circle cx="113.5" cy="74.5" r="2.2" fill="#ffffff" />
+                        <circle cx="86.5" cy="81.5" r="1" fill="#ffffff" />
+                        <circle cx="118.5" cy="81.5" r="1" fill="#ffffff" />
                     </g>
 
                     <!-- Happy Eyes (Arches, hidden by default) -->
                     <g class="cat-eyes-happy" id="eyes-happy" style="display: none;">
-                        <path d="M 80 80 Q 86 73 92 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="3.5"
+                        <path d="M 76 80 Q 84 70 92 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="4.5"
                             stroke-linecap="round" />
-                        <path d="M 108 80 Q 114 73 120 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="3.5"
+                        <path d="M 108 80 Q 116 70 124 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="4.5"
                             stroke-linecap="round" />
                     </g>
 
                     <!-- Blink Eyes (Lines, hidden by default) -->
                     <g class="cat-eyes-blink" id="eyes-blink" style="display: none;">
-                        <line x1="80" y1="78" x2="92" y2="78" stroke="var(--cat-eye-color)" stroke-width="3.5"
+                        <line x1="76" y1="78" x2="92" y2="78" stroke="var(--cat-eye-color)" stroke-width="4.5"
                             stroke-linecap="round" />
-                        <line x1="108" y1="78" x2="120" y2="78" stroke="var(--cat-eye-color)" stroke-width="3.5"
+                        <line x1="108" y1="78" x2="124" y2="78" stroke="var(--cat-eye-color)" stroke-width="4.5"
                             stroke-linecap="round" />
                     </g>
 
                     <!-- Nose -->
-                    <polygon class="cat-nose" points="98,85 102,85 100,88" fill="var(--cat-nose-color)" />
+                    <polygon class="cat-nose" points="99,84 101,84 100,86.5" fill="var(--cat-nose-color)" />
 
-                    <!-- Mouth -->
-                    <path class="cat-mouth" d="M 94 91 Q 97 94 100 91 Q 103 94 106 91" fill="none"
+                    <!-- Compact Mouth -->
+                    <path class="cat-mouth" d="M 96 90 Q 98 92.5 100 90.5 Q 102 92.5 104 90" fill="none"
                         stroke="var(--cat-mouth-color)" stroke-width="1.8" stroke-linecap="round" />
 
-                    <!-- Whiskers -->
-                    <line x1="58" y1="84" x2="43" y2="82" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
-                    <line x1="58" y1="89" x2="41" y2="89" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
-                    <line x1="58" y1="94" x2="43" y2="96" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
+                    <!-- Fine White Whiskers (Highly visible on black fur) -->
+                    <line x1="58" y1="84" x2="40" y2="81" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.4" />
+                    <line x1="58" y1="89" x2="38" y2="89" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.45" />
+                    <line x1="58" y1="94" x2="40" y2="97" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.4" />
 
-                    <line x1="142" y1="84" x2="157" y2="82" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
-                    <line x1="142" y1="89" x2="159" y2="89" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
-                    <line x1="142" y1="94" x2="157" y2="96" stroke="var(--cat-whisker-color)" stroke-width="1.2"
-                        stroke-linecap="round" />
+                    <line x1="142" y1="84" x2="160" y2="81" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.4" />
+                    <line x1="142" y1="89" x2="162" y2="89" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.45" />
+                    <line x1="142" y1="94" x2="160" y2="97" stroke="#ffffff" stroke-width="1.0" stroke-linecap="round" opacity="0.4" />
 
                     <!-- Accessories - Glasses -->
                     <g id="acc-sunglasses" class="cat-accessory" style="display: none;">
-                        <ellipse cx="86" cy="78" rx="10" ry="7" fill="#111827" />
-                        <ellipse cx="114" cy="78" rx="10" ry="7" fill="#111827" />
-                        <rect x="94" y="76" width="12" height="2.5" fill="#111827" />
-                        <line x1="82" y1="75" x2="88" y2="81" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
-                            opacity="0.6" />
-                        <line x1="110" y1="75" x2="116" y2="81" stroke="#ffffff" stroke-width="1.2"
-                            stroke-linecap="round" opacity="0.6" />
+                        <ellipse cx="84" cy="78" rx="12" ry="9" fill="#111827" />
+                        <ellipse cx="116" cy="78" rx="12" ry="9" fill="#111827" />
+                        <rect x="96" y="76.5" width="8" height="3" fill="#111827" />
+                        <line x1="79" y1="75" x2="85" y2="81" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+                        <line x1="111" y1="75" x2="117" y2="81" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
                     </g>
                     <g id="acc-glasses" class="cat-accessory" style="display: none;">
-                        <circle cx="86" cy="78" r="10" fill="none" stroke="#eab308" stroke-width="1.8" />
-                        <circle cx="114" cy="78" r="10" fill="none" stroke="#eab308" stroke-width="1.8" />
-                        <path d="M 96 78 Q 100 75 104 78" fill="none" stroke="#eab308" stroke-width="1.8" />
+                        <circle cx="84" cy="78" r="10.5" fill="none" stroke="#eab308" stroke-width="1.8" />
+                        <circle cx="116" cy="78" r="10.5" fill="none" stroke="#eab308" stroke-width="1.8" />
+                        <path d="M 94.5 78 Q 100 74 105.5 78" fill="none" stroke="#eab308" stroke-width="1.8" />
                     </g>
 
                     <!-- Accessories - Hats -->
