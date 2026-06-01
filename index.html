@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cica érkezés visszaszámláló</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f8d7e8, #d6e6ff);
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 360px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .cat {
+            font-size: 64px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .timer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .box {
+            background: #f3f3f3;
+            padding: 14px;
+            border-radius: 14px;
+        }
+
+        .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .mission {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 14px;
+            background: #fff4cc;
+            color: #4a3b00;
+            font-size: 15px;
+        }
+
+        .done {
+            background: #d8ffd8;
+            color: #145214;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="cat">🐈‍⬛</div>
+        <h1>Cica érkezik</h1>
+
+        <div class="timer">
+            <div class="box">
+                <div class="number" id="days">0</div>
+                <div class="label">nap</div>
+            </div>
+            <div class="box">
+                <div class="number" id="hours">0</div>
+                <div class="label">óra</div>
+            </div>
+            <div class="box">
+                <div class="number" id="minutes">0</div>
+                <div class="label">perc</div>
+            </div>
+            <div class="box">
+                <div class="number" id="seconds">0</div>
+                <div class="label">másodperc</div>
+            </div>
+        </div>
+
+        <div class="mission" id="mission">
+            Mai küldetés betöltése...
+        </div>
+    </div>
+
+    <script>
+        // Állítsd be a hazahozatal dátumát.
+        // Példa: 27 nap múlva
+        const arrivalDate = new Date();
+        arrivalDate.setDate(arrivalDate.getDate() + 27);
+        arrivalDate.setHours(12, 0, 0, 0);
+
+        const missions = [
+            "Nézz ki neki egy kényelmes fekhelyet.",
+            "Ellenőrizd, megvan-e az alomtálca.",
+            "Keress egy jó kaparófát.",
+            "Válassz neki egy első játékot.",
+            "Készíts neki nyugodt kuckót.",
+            "Olvass utána az első napi beszoktatásnak.",
+            "Készíts helyet a hordozónak.",
+            "Tervezd meg, hol legyen az etetőtál.",
+            "Nézz ki állatorvost a közelben.",
+            "Cicabiztosítsd a kábeleket.",
+            "Vedd meg az első adag almot.",
+            "Vedd meg az első adag tápot.",
+            "Keress neki egy puha takarót.",
+            "Döntsd el, hova kerül a kaparófa.",
+            "Írj listát a hiányzó felszerelésekről.",
+            "Nézz utána, milyen növények mérgezők macskáknak.",
+            "Készíts neki egy kis nyugalmi zónát.",
+            "Pakold el a törékeny dolgokat.",
+            "Ellenőrizd az ablakokat és szúnyoghálókat.",
+            "Gondold át a nevét, ha még nincs meg.",
+            "Készíts egy első fotóhelyet.",
+            "Töltsd fel a telefonod tárhelyét. Szükség lesz rá.",
+            "Csinálj mini checklistet az érkezés napjára.",
+            "Készíts be vizet és etetőtálat.",
+            "Mrrrppp.",
+            "Készítsd elő a hordozó helyét.",
+            "Holnap jön. Ne rendezd át már az egész lakást."
+        ];
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = arrivalDate - now;
+
+            const missionBox = document.getElementById("mission");
+
+            if (diff <= 0) {
+                document.getElementById("days").textContent = 0;
+                document.getElementById("hours").textContent = 0;
+                document.getElementById("minutes").textContent = 0;
+                document.getElementById("seconds").textContent = 0;
+
+                missionBox.textContent = "A cica hazajött. Mostantól ő az új projektmenedzser.";
+                missionBox.classList.add("done");
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+
+            const missionIndex = Math.max(0, missions.length - days - 1);
+            missionBox.textContent = "Mai küldetés: " + missions[missionIndex];
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>
