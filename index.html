@@ -1984,11 +1984,14 @@
         }
 
         function blinkEyeAnimation() {
+            // Only blink if not happy and not sleeping
+            if (isSleeping) return;
+
             // Only blink if not in happy mode (which handles its own timeouts)
             if (eyesHappy.style.display === "none") {
                 setCatEyes("blink");
                 setTimeout(() => {
-                    if (eyesHappy.style.display === "none") {
+                    if (eyesHappy.style.display === "none" && !isSleeping) {
                         setCatEyes("normal");
                     }
                 }, 180);
