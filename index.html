@@ -1548,6 +1548,8 @@
         let isDraggingYarn = false;
         let yarnPos = { x: 50, y: 50 }; // Relative percentages in playground
         let bubbleTimeout = null;
+        let lastPetMsg = "";
+        let lastFeedMsg = "";
 
 
         const Confetti = {
@@ -1857,7 +1859,11 @@
                 "meeep",
                 "Sinogati"
             ];
-            const randMsg = messages[Math.floor(Math.random() * messages.length)];
+            let randMsg;
+            do {
+                randMsg = messages[Math.floor(Math.random() * messages.length)];
+            } while (randMsg === lastPetMsg);
+            lastPetMsg = randMsg;
             showCatBubble(randMsg);
 
             // Revert eyes to normal after 2s
@@ -2086,7 +2092,11 @@
                         "Zabbantyú",
                         "jó étv"
                     ];
-                    const randMsg = feedMessages[Math.floor(Math.random() * feedMessages.length)];
+                    let randMsg;
+                    do {
+                        randMsg = feedMessages[Math.floor(Math.random() * feedMessages.length)];
+                    } while (randMsg === lastFeedMsg);
+                    lastFeedMsg = randMsg;
                     showCatBubble(randMsg);
 
                     setTimeout(() => {
