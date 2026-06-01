@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cica Visszaszámláló & Asszisztens</title>
+    <title>Gülü goblin catnapping visszaszámláló</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -818,117 +818,7 @@
             fill: currentColor;
         }
 
-        /* Modal Settings */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            width: 90%;
-            max-width: 400px;
-            padding: 24px;
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-
-        .modal-title {
-            font-family: var(--font-title);
-            font-weight: 800;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .form-group input {
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            font-size: 13px;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        .modal-btn {
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-family: var(--font-title);
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s ease;
-        }
-
-        .modal-btn-cancel {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
-        .modal-btn-cancel:hover {
-            background: var(--text-muted);
-            color: white;
-        }
-
-        .modal-btn-save {
-            background: var(--accent);
-            color: white;
-        }
-
-        .modal-btn-save:hover {
-            background: var(--accent-hover);
-        }
 
         /* Stats Section */
         .stats-row {
@@ -1105,8 +995,8 @@
         <!-- Header -->
         <div class="header">
             <div class="header-title-area">
-                <h1 id="app-title-name">Cica érkezik</h1>
-                <p>Felkészülési asszisztens & számláló</p>
+                <h1 id="app-title-name">Mokka érkezik</h1>
+                <p>Gülü goblin catnapping visszaszámláló</p>
             </div>
             <div class="header-actions">
                 <!-- Theme Toggle Button -->
@@ -1125,13 +1015,6 @@
                     <svg viewBox="0 0 24 24">
                         <path
                             d="M12 2a3 3 0 0 0-3 3h2a1 1 0 0 1 2 0 1.5 1.5 0 0 0 1.5 1.5h1.7l-4.7 3.5-9.3 7A2 2 0 0 0 4 20.3V21h16v-.7a2 2 0 0 0-1.2-3.3l-9.3-7-1.5-1.1V5a1 1 0 0 1 1-1 1 1 0 0 0 0-2H12Zm-6.5 16.5 6.5-4.9 6.5 4.9H5.5Z" />
-                    </svg>
-                </button>
-                <!-- Settings Button -->
-                <button class="icon-btn" id="settings-open-btn" aria-label="Beállítások">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65ZM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5Z" />
                     </svg>
                 </button>
             </div>
@@ -1498,34 +1381,14 @@
 
     </div>
 
-    <!-- Settings Modal Overlay -->
-    <div class="modal-overlay" id="settings-modal">
-        <div class="modal">
-            <h2 class="modal-title">Beállítások</h2>
 
-            <div class="form-group">
-                <label for="settings-cat-name">Cica Neve</label>
-                <input type="text" id="settings-cat-name" placeholder="Például: Muki" />
-            </div>
-
-            <div class="form-group">
-                <label for="settings-target-date">Hazahozatal Dátuma és Időpontja</label>
-                <input type="datetime-local" id="settings-target-date" />
-            </div>
-
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-cancel" id="settings-close-btn">Mégse</button>
-                <button class="modal-btn modal-btn-save" id="settings-save-btn">Mentés</button>
-            </div>
-        </div>
-    </div>
 
     <script>
         // State variables
         let appState = {
-            catName: "Cica",
-            arrivalDate: null,
-            creationDate: null,
+            catName: "Mokka",
+            arrivalDate: new Date("2026-06-28T12:00:00"),
+            creationDate: new Date("2026-06-01T12:00:00"),
             theme: "light",
             stats: {
                 pets: 0,
@@ -1546,13 +1409,7 @@
         const wardrobeOpenBtn = document.getElementById("wardrobe-open-btn");
         const wardrobeDrawer = document.getElementById("wardrobe-drawer");
         const wardrobeOptBtns = document.querySelectorAll(".wardrobe-opt-btn");
-        const settingsOpenBtn = document.getElementById("settings-open-btn");
-        const settingsCloseBtn = document.getElementById("settings-close-btn");
-        const settingsSaveBtn = document.getElementById("settings-save-btn");
-        const settingsModal = document.getElementById("settings-modal");
 
-        const settingsCatName = document.getElementById("settings-cat-name");
-        const settingsTargetDate = document.getElementById("settings-target-date");
 
         const valDays = document.getElementById("val-days");
         const valHours = document.getElementById("val-hours");
@@ -1601,31 +1458,16 @@
             }
             applyTheme(appState.theme);
 
-            // Settings setup
-            const savedName = localStorage.getItem("cica_name");
-            appState.catName = savedName || "Cica";
+            // Settings setup (hardcoded)
+            appState.catName = "Mokka";
             appTitleName.textContent = appState.catName + " érkezik";
+            appState.arrivalDate = new Date("2026-06-28T12:00:00");
+            appState.creationDate = new Date("2026-06-01T12:00:00");
 
-            const savedArrival = localStorage.getItem("cica_arrival");
-            if (savedArrival) {
-                appState.arrivalDate = new Date(savedArrival);
-            } else {
-                // Default: 27 days from now at 12:00
-                const defaultDate = new Date();
-                defaultDate.setDate(defaultDate.getDate() + 27);
-                defaultDate.setHours(12, 0, 0, 0);
-                appState.arrivalDate = defaultDate;
-                localStorage.setItem("cica_arrival", defaultDate.toISOString());
-            }
-
-            const savedCreation = localStorage.getItem("cica_creation");
-            if (savedCreation) {
-                appState.creationDate = new Date(savedCreation);
-            } else {
-                const now = new Date();
-                appState.creationDate = now;
-                localStorage.setItem("cica_creation", now.toISOString());
-            }
+            // Clean up obsolete localStorage items to avoid confusion
+            localStorage.removeItem("cica_name");
+            localStorage.removeItem("cica_arrival");
+            localStorage.removeItem("cica_creation");
 
             // Stats setup
             const savedStats = localStorage.getItem("cica_stats");
@@ -1685,9 +1527,7 @@
                 });
             });
 
-            settingsOpenBtn.addEventListener("click", openSettings);
-            settingsCloseBtn.addEventListener("click", closeSettings);
-            settingsSaveBtn.addEventListener("click", saveSettings);
+
 
             // Cat interaction listeners
             petBtn.addEventListener("click", petCat);
@@ -1762,43 +1602,7 @@
             });
         }
 
-        // Settings Modal
-        function openSettings() {
-            settingsCatName.value = appState.catName;
 
-            // Format date for datetime-local input
-            const localDate = new Date(appState.arrivalDate.getTime() - appState.arrivalDate.getTimezoneOffset() * 60000);
-            settingsTargetDate.value = localDate.toISOString().slice(0, 16);
-
-            settingsModal.classList.add("active");
-        }
-
-        function closeSettings() {
-            settingsModal.classList.remove("active");
-        }
-
-        function saveSettings() {
-            const nameVal = settingsCatName.value.trim();
-            const dateVal = settingsTargetDate.value;
-
-            if (!nameVal) return;
-            if (!dateVal) return;
-
-            appState.catName = nameVal;
-            appTitleName.textContent = nameVal + " érkezik";
-            localStorage.setItem("cica_name", nameVal);
-
-            const newArrival = new Date(dateVal);
-            appState.arrivalDate = newArrival;
-            localStorage.setItem("cica_arrival", newArrival.toISOString());
-
-            // Reset countdown creation date to calculate percentage from now
-            appState.creationDate = new Date();
-            localStorage.setItem("cica_creation", appState.creationDate.toISOString());
-
-            closeSettings();
-            updateCountdown();
-        }
 
         // Dynamic stats UI
         function updateStatsUI() {
