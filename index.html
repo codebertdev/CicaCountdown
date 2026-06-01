@@ -3,126 +3,1250 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Cica érkezés visszaszámláló</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cica Visszaszámláló & Asszisztens</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
+
     <style>
-        body {
+        :root {
+            --font-title: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            /* Light theme colors */
+            --bg-gradient: linear-gradient(135deg, #fdfbf7 0%, #f5efe6 50%, #e6eef8 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.5);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent: #ff8b77;
+            --accent-hover: #ff765e;
+            --bg-secondary: #f1f5f9;
+            --bg-active: #ffffff;
+            --success: #10b981;
+            --bowl-color: #cbd5e1;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Cat theme colors */
+            --cat-color-light: #52525b;
+            --cat-color-dark: #27272a;
+            --cat-ear-inner: #fecdd3;
+            --cat-chest-color: #f4f4f5;
+            --cat-eye-color: #eab308;
+            --cat-nose-color: #fecdd3;
+            --cat-mouth-color: #71717a;
+            --cat-whisker-color: #d4d4d8;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #0b0f19 50%, #030712 100%);
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #ffa494;
+            --accent-hover: #ffbbb0;
+            --bg-secondary: #1e293b;
+            --bg-active: #0f172a;
+            --success: #34d399;
+            --bowl-color: #475569;
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            
+            /* Cat theme adjustments */
+            --cat-color-light: #3f3f46;
+            --cat-color-dark: #18181b;
+            --cat-ear-inner: #fda4af;
+            --cat-chest-color: #e4e4e7;
+            --cat-eye-color: #facc15;
+            --cat-nose-color: #fda4af;
+            --cat-mouth-color: #52525b;
+            --cat-whisker-color: #3f3f46;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-gradient);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f8d7e8, #d6e6ff);
+            padding: 20px;
+            transition: background 0.5s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
-        .card {
-            background: white;
-            padding: 32px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            width: 360px;
+        .app-container {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 10;
+            transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
         }
 
-        h1 {
-            margin-top: 0;
-            color: #333;
+        /* Header controls */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
 
-        .cat {
-            font-size: 64px;
-            animation: bounce 1.5s infinite;
+        .header-title-area {
+            flex-grow: 1;
         }
 
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
+        .header h1 {
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: var(--text-primary);
         }
 
-        .timer {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 24px 0;
-        }
-
-        .box {
-            background: #f3f3f3;
-            padding: 14px;
-            border-radius: 14px;
-        }
-
-        .number {
-            font-size: 28px;
-            font-weight: bold;
-            color: #222;
-        }
-
-        .label {
+        .header p {
             font-size: 13px;
-            color: #666;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
-        .mission {
-            margin-top: 20px;
-            padding: 14px;
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: var(--bg-secondary);
+            border: none;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Cat Playground */
+        .playground-card {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 16px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            height: 220px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .toy-active-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toy-active-label.active {
+            opacity: 1;
+        }
+
+        /* SVG Cat animations */
+        .cat-svg {
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.2s ease;
+        }
+
+        .cat-svg:hover {
+            transform: scale(1.02);
+        }
+
+        .cat-tail {
+            transform-origin: 125px 150px;
+            animation: tailWag 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes tailWag {
+            0% { transform: rotate(-8deg); }
+            100% { transform: rotate(8deg); }
+        }
+
+        .cat-head-group {
+            transform-origin: 100px 95px;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Speech balloon */
+        .bubble {
+            position: absolute;
+            background: var(--bg-active);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-sm);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            bottom: 140px;
+            transform: scale(0);
+            transform-origin: bottom center;
+            opacity: 0;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 5;
+            text-align: center;
+            max-width: 150px;
+        }
+
+        .bubble.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: var(--bg-active);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        /* Hearts Container */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .heart-svg {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
+            opacity: 0.8;
+            animation: floatUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(120px) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20px) scale(1.2) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Falling treats */
+        .treat-svg {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .sparkle-svg {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            fill: #facc15;
+            pointer-events: none;
+            z-index: 4;
+            transform: scale(0);
+            animation: burst 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes burst {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+            100% { transform: scale(0.8) rotate(90deg); opacity: 0; }
+        }
+
+        /* Cat food bowl */
+        .food-bowl {
+            width: 50px;
+            height: 14px;
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .bowl-rim {
+            width: 50px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bowl-color);
+            position: absolute;
+            bottom: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .bowl-base {
+            width: 44px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 0;
+            left: 3px;
+        }
+
+        /* Yarn Ball */
+        .yarn-ball {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            cursor: grab;
+            z-index: 6;
+            pointer-events: auto;
+            display: none;
+        }
+
+        .yarn-ball:active {
+            cursor: grabbing;
+        }
+
+        /* Playground Buttons */
+        .playground-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 139, 119, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 139, 119, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            background: var(--bg-secondary);
+            border-radius: 18px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
             border-radius: 14px;
-            background: #fff4cc;
-            color: #4a3b00;
-            font-size: 15px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
-        .done {
-            background: #d8ffd8;
-            color: #145214;
+        .tab-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-active);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Tab Content Screens */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Countdown display */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-container {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+            width: 84px;
+            height: 84px;
+        }
+
+        .progress-ring-bg {
+            stroke: var(--bg-secondary);
+            transition: stroke 0.3s ease;
+        }
+
+        .progress-ring-circle {
+            stroke: var(--accent);
+            stroke-dasharray: 245.04;
+            stroke-dashoffset: 245.04;
+            transition: stroke-dashoffset 0.35s ease, stroke 0.3s ease;
+        }
+
+        .countdown-number {
+            position: absolute;
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Status / Quest display below countdown */
+        .status-box {
+            margin-top: 24px;
+            background: var(--bg-secondary);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .status-header {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .status-message {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Checklist Panel */
+        .checklist-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .progress-bar-area {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .progress-bar-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-track {
+            height: 10px;
+            background: var(--bg-secondary);
+            border-radius: 5px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+
+        .checklist-wrapper {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Custom Scrollbar for checklist */
+        .checklist-wrapper::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .checklist-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .checklist-wrapper::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 4px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            gap: 12px;
+        }
+
+        .checklist-item-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-muted);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .custom-checkbox svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: scale(0);
+            transition: transform 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+        }
+
+        .checklist-item input[type="checkbox"]:checked + .custom-checkbox {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .checklist-item input[type="checkbox"]:checked + .custom-checkbox svg {
+            transform: scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .delete-task-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .delete-task-btn:hover {
+            color: var(--accent);
+            background: var(--bg-active);
+        }
+
+        .delete-task-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Checklist Add Form */
+        .add-task-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .task-input {
+            flex-grow: 1;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .task-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--bg-active);
+        }
+
+        .add-btn {
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-family: var(--font-title);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .add-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .add-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Modal Settings */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .form-group input {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .modal-btn {
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-cancel {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .modal-btn-cancel:hover {
+            background: var(--text-muted);
+            color: white;
+        }
+
+        .modal-btn-save {
+            background: var(--accent);
+            color: white;
+        }
+
+        .modal-btn-save:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Stats Section */
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 16px;
+            border-top: 1px dashed var(--card-border);
+            padding-top: 14px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 18px;
+            }
+            .countdown-grid {
+                gap: 8px;
+            }
+            .progress-container {
+                width: 72px;
+                height: 72px;
+            }
+            .progress-ring {
+                width: 72px;
+                height: 72px;
+            }
+            .progress-ring-circle {
+                stroke-dasharray: 201.06;
+                stroke-dashoffset: 201.06;
+            }
+            .countdown-number {
+                font-size: 16px;
+            }
+            .countdown-label {
+                font-size: 10px;
+                margin-top: 4px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <div class="cat">🐈‍⬛</div>
-        <h1>Cica érkezik</h1>
-
-        <div class="timer">
-            <div class="box">
-                <div class="number" id="days">0</div>
-                <div class="label">nap</div>
+    <div class="app-container">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title-area">
+                <h1 id="app-title-name">Cica érkezik</h1>
+                <p>Felkészülési asszisztens & számláló</p>
             </div>
-            <div class="box">
-                <div class="number" id="hours">0</div>
-                <div class="label">óra</div>
-            </div>
-            <div class="box">
-                <div class="number" id="minutes">0</div>
-                <div class="label">perc</div>
-            </div>
-            <div class="box">
-                <div class="number" id="seconds">0</div>
-                <div class="label">másodperc</div>
+            <div class="header-actions">
+                <!-- Theme Toggle Button -->
+                <button class="icon-btn" id="theme-toggle-btn" aria-label="Sötét/Világos mód">
+                    <svg id="theme-icon" viewBox="0 0 24 24">
+                        <!-- Moon path (default) -->
+                        <path class="moon-path" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.38 5.38 0 0 1-4.4 2.26 5.4 5.4 0 0 1-4.14-9.5A9 9 0 0 0 12 3Z"/>
+                        <!-- Sun rays & circle (hidden in light mode, toggled dynamically) -->
+                        <path class="sun-path" style="display: none;" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1Zm0 14a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1ZM5.22 5.22a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 0 1-1.42 1.42L5.22 6.64a1 1 0 0 1 0-1.42Zm10.54 10.54a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 0 1-1.42 1.42l-1.41-1.41a1 1 0 0 1 0-1.42ZM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Zm14 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1ZM6.64 15.66a1 1 0 0 1 0 1.41l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.41-1.41a1 1 0 0 1 1.42 0Zm10.54-10.54a1 1 0 0 1 0 1.42l-1.41 1.41a1 1 0 0 1-1.42-1.42l1.41-1.41a1 1 0 0 1 1.42 0Z"/>
+                    </svg>
+                </button>
+                <!-- Settings Button -->
+                <button class="icon-btn" id="settings-open-btn" aria-label="Beállítások">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65ZM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5Z"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
-        <div class="mission" id="mission">
-            Mai küldetés betöltése...
+        <!-- Cat Playground Area -->
+        <div class="playground-card" id="playground">
+            <span class="toy-active-label" id="toy-label">Játék mód aktív</span>
+            
+            <!-- Speech bubble -->
+            <div class="bubble" id="cat-bubble">Doromb...</div>
+            
+            <!-- Float structures -->
+            <div class="hearts-container" id="hearts-layer"></div>
+            
+            <!-- Interactive Inline SVG Cat -->
+            <svg class="cat-svg" id="cica-mascot" viewBox="0 0 200 200" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="cat-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="rgba(0, 0, 0, 0.15)"/>
+                    </filter>
+                    <linearGradient id="catBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--cat-color-light)" />
+                        <stop offset="100%" stop-color="var(--cat-color-dark)" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Tail -->
+                <g class="cat-tail-group">
+                    <path class="cat-tail" d="M 125 150 C 145 150, 160 130, 155 100 C 150 70, 175 60, 170 45 C 165 30, 140 45, 145 70 C 150 95, 135 125, 115 135 Z" fill="url(#catBodyGrad)"/>
+                </g>
+
+                <!-- Main Body -->
+                <ellipse class="cat-body" cx="100" cy="140" rx="42" ry="32" fill="url(#catBodyGrad)" filter="url(#cat-shadow)"/>
+
+                <!-- Chest Patch -->
+                <path class="cat-chest" d="M 82 124 C 82 112, 118 112, 118 124 C 118 142, 82 142, 82 124 Z" fill="var(--cat-chest-color)" opacity="0.95"/>
+
+                <!-- Left & Right Paws -->
+                <rect class="cat-paw-left" x="78" y="153" width="14" height="18" rx="7" fill="url(#catBodyGrad)"/>
+                <rect class="cat-paw-right" x="108" y="153" width="14" height="18" rx="7" fill="url(#catBodyGrad)"/>
+
+                <!-- Head Group (Pivots/Animates) -->
+                <g class="cat-head-group" id="cica-head">
+                    <!-- Left Ear -->
+                    <path class="cat-ear-left" d="M 66 78 L 52 42 L 88 60 Z" fill="url(#catBodyGrad)"/>
+                    <path class="cat-ear-left-inner" d="M 70 73 L 59 49 L 83 62 Z" fill="var(--cat-ear-inner)"/>
+
+                    <!-- Right Ear -->
+                    <path class="cat-ear-right" d="M 134 78 L 148 42 L 112 60 Z" fill="url(#catBodyGrad)"/>
+                    <path class="cat-ear-right-inner" d="M 130 73 L 139 49 L 117 62 Z" fill="var(--cat-ear-inner)"/>
+
+                    <!-- Round Head -->
+                    <circle class="cat-head" cx="100" cy="82" r="38" fill="url(#catBodyGrad)" filter="url(#cat-shadow)"/>
+
+                    <!-- Normal Eyes (Visible by default) -->
+                    <g class="cat-eyes-normal" id="eyes-normal">
+                        <circle cx="86" cy="78" r="4.5" fill="var(--cat-eye-color)"/>
+                        <circle cx="114" cy="78" r="4.5" fill="var(--cat-eye-color)"/>
+                        <circle cx="84.5" cy="76.5" r="1.5" fill="#fff"/>
+                        <circle cx="112.5" cy="76.5" r="1.5" fill="#fff"/>
+                    </g>
+
+                    <!-- Happy Eyes (Arches, hidden by default) -->
+                    <g class="cat-eyes-happy" id="eyes-happy" style="display: none;">
+                        <path d="M 80 80 Q 86 73 92 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M 108 80 Q 114 73 120 80" fill="none" stroke="var(--cat-eye-color)" stroke-width="3.5" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Blink Eyes (Lines, hidden by default) -->
+                    <g class="cat-eyes-blink" id="eyes-blink" style="display: none;">
+                        <line x1="80" y1="78" x2="92" y2="78" stroke="var(--cat-eye-color)" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="108" y1="78" x2="120" y2="78" stroke="var(--cat-eye-color)" stroke-width="3.5" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Nose -->
+                    <polygon class="cat-nose" points="98,85 102,85 100,88" fill="var(--cat-nose-color)"/>
+
+                    <!-- Mouth -->
+                    <path class="cat-mouth" d="M 94 91 Q 97 94 100 91 Q 103 94 106 91" fill="none" stroke="var(--cat-mouth-color)" stroke-width="1.8" stroke-linecap="round"/>
+
+                    <!-- Whiskers -->
+                    <line x1="58" y1="84" x2="43" y2="82" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="58" y1="89" x2="41" y2="89" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="58" y1="94" x2="43" y2="96" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+
+                    <line x1="142" y1="84" x2="157" y2="82" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="142" y1="89" x2="159" y2="89" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="142" y1="94" x2="157" y2="96" stroke="var(--cat-whisker-color)" stroke-width="1.2" stroke-linecap="round"/>
+                </g>
+            </svg>
+            
+            <!-- Food bowl element at the bottom -->
+            <div class="food-bowl">
+                <div class="bowl-rim"></div>
+                <div class="bowl-base"></div>
+            </div>
+
+            <!-- Draggable/floating yarn ball (only shown in play mode) -->
+            <svg class="yarn-ball" id="yarn-ball" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="18" r="16" fill="var(--accent)" />
+                <path d="M 6 18 Q 18 6 30 18 Q 18 30 6 18 Z" fill="none" stroke="var(--bg-active)" stroke-width="1.5" opacity="0.6"/>
+                <path d="M 18 6 Q 30 18 18 30 Q 6 18 18 6 Z" fill="none" stroke="var(--bg-active)" stroke-width="1.5" opacity="0.6"/>
+                <path d="M 8 10 Q 18 26 28 26" fill="none" stroke="var(--bg-active)" stroke-width="1.5" opacity="0.6"/>
+                <path d="M 8 26 Q 18 10 28 10" fill="none" stroke="var(--bg-active)" stroke-width="1.5" opacity="0.6"/>
+            </svg>
+        </div>
+
+        <!-- Playground Controls -->
+        <div class="playground-controls">
+            <button class="btn btn-primary" id="pet-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z"/>
+                </svg>
+                Simogatás
+            </button>
+            <button class="btn btn-primary" id="feed-btn">
+                <svg viewBox="0 0 24 24">
+                    <!-- Custom fish shape -->
+                    <path d="M12 3c-1.2 0-2.4.6-3.3 1.7C6.7 6.8 5.7 10.3 6 13.5c.1.9.4 1.7.9 2.5L3.6 19.3c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6l3.3-3.3c.8.5 1.6.8 2.5.9 3.2.3 6.7-.7 8.8-2.7 1.1-.9 1.7-2.1 1.7-3.3 0-3.3-1.8-6.1-5-7.4C14.7 3.3 13.4 3 12 3Zm0 5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1Z"/>
+                </svg>
+                Jutalomfalat
+            </button>
+            <button class="btn btn-secondary" id="toy-toggle-btn">
+                <svg viewBox="0 0 24 24">
+                    <!-- Dynamic ball/toy path -->
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M6.2 17.8A8 8 0 0 1 17.8 6.2M17.8 17.8A8 8 0 0 0 6.2 6.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                Fonáljáték
+            </button>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" id="tab-countdown-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm3.3 14.3L11 12.9V7h1.5v5.2l3.7 2.2-1.91 1.9Z"/>
+                </svg>
+                Visszaszámláló
+            </button>
+            <button class="tab-btn" id="tab-checklist-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 13h2v-2H3v2Zm0 4h2v-2H3v2Zm0-8h2V7H3v2Zm4 4h14v-2H7v2Zm0 4h14v-2H7v2Zm0-8h14V7H7v2ZM3 21h18v-2H3v2ZM3 3v2h18V3H3Z"/>
+                </svg>
+                Felkészülés
+            </button>
+        </div>
+
+        <!-- Section 1: Countdown -->
+        <div class="tab-content active" id="content-countdown">
+            <div class="countdown-grid">
+                <!-- Days -->
+                <div class="countdown-box">
+                    <div class="progress-container">
+                        <svg class="progress-ring">
+                            <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                            <circle class="progress-ring-circle" id="ring-days" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                        </svg>
+                        <span class="countdown-number" id="val-days">00</span>
+                    </div>
+                    <span class="countdown-label">Nap</span>
+                </div>
+                
+                <!-- Hours -->
+                <div class="countdown-box">
+                    <div class="progress-container">
+                        <svg class="progress-ring">
+                            <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                            <circle class="progress-ring-circle" id="ring-hours" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                        </svg>
+                        <span class="countdown-number" id="val-hours">00</span>
+                    </div>
+                    <span class="countdown-label">Óra</span>
+                </div>
+                
+                <!-- Minutes -->
+                <div class="countdown-box">
+                    <div class="progress-container">
+                        <svg class="progress-ring">
+                            <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                            <circle class="progress-ring-circle" id="ring-minutes" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                        </svg>
+                        <span class="countdown-number" id="val-minutes">00</span>
+                    </div>
+                    <span class="countdown-label">Perc</span>
+                </div>
+                
+                <!-- Seconds -->
+                <div class="countdown-box">
+                    <div class="progress-container">
+                        <svg class="progress-ring">
+                            <circle class="progress-ring-bg" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                            <circle class="progress-ring-circle" id="ring-seconds" stroke-width="5" fill="transparent" r="39" cx="42" cy="42"/>
+                        </svg>
+                        <span class="countdown-number" id="val-seconds">00</span>
+                    </div>
+                    <span class="countdown-label">Másodperc</span>
+                </div>
+            </div>
+
+            <!-- Daily Quest Highlight -->
+            <div class="status-box">
+                <span class="status-header">Kiemelt mai feladat</span>
+                <span class="status-message" id="daily-quest-text">Küldetés betöltése...</span>
+            </div>
+        </div>
+
+        <!-- Section 2: Checklist -->
+        <div class="tab-content" id="content-checklist">
+            <div class="checklist-panel">
+                
+                <!-- Progress bar -->
+                <div class="progress-bar-area">
+                    <div class="progress-bar-info">
+                        <span>Előkészületek állapota</span>
+                        <span id="checklist-percent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="checklist-progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Scrollable Checklist List -->
+                <div class="checklist-wrapper" id="checklist-list">
+                    <!-- Template items will be injected by JavaScript -->
+                </div>
+
+                <!-- Add Custom Task Form -->
+                <form class="add-task-form" id="add-task-form" onsubmit="event.preventDefault();">
+                    <input type="text" class="task-input" id="new-task-input" placeholder="Új feladat hozzáadása..." required />
+                    <button type="submit" class="add-btn" aria-label="Hozzáadás">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z"/>
+                        </svg>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Interactive Stats footer -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <span>Simogatások</span>
+                <span class="stat-value" id="stat-pets">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Csemegék</span>
+                <span class="stat-value" id="stat-treats">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Játékok száma</span>
+                <span class="stat-value" id="stat-swats">0</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Settings Modal Overlay -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <h2 class="modal-title">Beállítások</h2>
+            
+            <div class="form-group">
+                <label for="settings-cat-name">Cica Neve</label>
+                <input type="text" id="settings-cat-name" placeholder="Például: Muki" />
+            </div>
+
+            <div class="form-group">
+                <label for="settings-target-date">Hazahozatal Dátuma és Időpontja</label>
+                <input type="datetime-local" id="settings-target-date" />
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="settings-close-btn">Mégse</button>
+                <button class="modal-btn modal-btn-save" id="settings-save-btn">Mentés</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Állítsd be a hazahozatal dátumát.
-        // Példa: 27 nap múlva
-        const arrivalDate = new Date();
-        arrivalDate.setDate(arrivalDate.getDate() + 27);
-        arrivalDate.setHours(12, 0, 0, 0);
-
-        const missions = [
+        // Default preparation quests
+        const defaultMissions = [
             "Nézz ki neki egy kényelmes fekhelyet.",
             "Ellenőrizd, megvan-e az alomtálca.",
             "Keress egy jó kaparófát.",
@@ -152,20 +1276,703 @@
             "Holnap jön. Ne rendezd át már az egész lakást."
         ];
 
+        // State variables
+        let appState = {
+            catName: "Cica",
+            arrivalDate: null,
+            creationDate: null,
+            theme: "light",
+            tasks: [],
+            stats: {
+                pets: 0,
+                treats: 0,
+                swats: 0
+            }
+        };
+
+        // UI Selectors
+        const appTitleName = document.getElementById("app-title-name");
+        const themeToggleBtn = document.getElementById("theme-toggle-btn");
+        const themeIcon = document.getElementById("theme-icon");
+        const settingsOpenBtn = document.getElementById("settings-open-btn");
+        const settingsCloseBtn = document.getElementById("settings-close-btn");
+        const settingsSaveBtn = document.getElementById("settings-save-btn");
+        const settingsModal = document.getElementById("settings-modal");
+        
+        const settingsCatName = document.getElementById("settings-cat-name");
+        const settingsTargetDate = document.getElementById("settings-target-date");
+
+        const tabCountdownBtn = document.getElementById("tab-countdown-btn");
+        const tabChecklistBtn = document.getElementById("tab-checklist-btn");
+        const contentCountdown = document.getElementById("content-countdown");
+        const contentChecklist = document.getElementById("content-checklist");
+
+        const valDays = document.getElementById("val-days");
+        const valHours = document.getElementById("val-hours");
+        const valMinutes = document.getElementById("val-minutes");
+        const valSeconds = document.getElementById("val-seconds");
+
+        const ringDays = document.getElementById("ring-days");
+        const ringHours = document.getElementById("ring-hours");
+        const ringMinutes = document.getElementById("ring-minutes");
+        const ringSeconds = document.getElementById("ring-seconds");
+
+        const dailyQuestText = document.getElementById("daily-quest-text");
+        const checklistList = document.getElementById("checklist-list");
+        const checklistPercentText = document.getElementById("checklist-percent");
+        const checklistProgressFill = document.getElementById("checklist-progress-fill");
+        const newTaskInput = document.getElementById("new-task-input");
+        const addTaskForm = document.getElementById("add-task-form");
+
+        const statPets = document.getElementById("stat-pets");
+        const statTreats = document.getElementById("stat-treats");
+        const statSwats = document.getElementById("stat-swats");
+
+        // Cat elements
+        const cicaMascot = document.getElementById("cica-mascot");
+        const cicaHead = document.getElementById("cica-head");
+        const eyesNormal = document.getElementById("eyes-normal");
+        const eyesHappy = document.getElementById("eyes-happy");
+        const eyesBlink = document.getElementById("eyes-blink");
+        const petBtn = document.getElementById("pet-btn");
+        const feedBtn = document.getElementById("feed-btn");
+        const toyToggleBtn = document.getElementById("toy-toggle-btn");
+        const playground = document.getElementById("playground");
+        const yarnBall = document.getElementById("yarn-ball");
+        const toyLabel = document.getElementById("toy-label");
+        const catBubble = document.getElementById("cat-bubble");
+        const heartsLayer = document.getElementById("hearts-layer");
+
+        // Draggable/tracking state for Yarn
+        let yarnActive = false;
+        let isDraggingYarn = false;
+        let yarnPos = { x: 50, y: 50 }; // Relative percentages in playground
+        let bubbleTimeout = null;
+
+        // Initialize state from local storage or defaults
+        function initApp() {
+            // Theme setup
+            const savedTheme = localStorage.getItem("cica_theme");
+            const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme) {
+                appState.theme = savedTheme;
+            } else {
+                appState.theme = prefersDark ? "dark" : "light";
+            }
+            applyTheme(appState.theme);
+
+            // Settings setup
+            const savedName = localStorage.getItem("cica_name");
+            appState.catName = savedName || "Cica";
+            appTitleName.textContent = appState.catName + " érkezik";
+
+            const savedArrival = localStorage.getItem("cica_arrival");
+            if (savedArrival) {
+                appState.arrivalDate = new Date(savedArrival);
+            } else {
+                // Default: 27 days from now at 12:00
+                const defaultDate = new Date();
+                defaultDate.setDate(defaultDate.getDate() + 27);
+                defaultDate.setHours(12, 0, 0, 0);
+                appState.arrivalDate = defaultDate;
+                localStorage.setItem("cica_arrival", defaultDate.toISOString());
+            }
+
+            const savedCreation = localStorage.getItem("cica_creation");
+            if (savedCreation) {
+                appState.creationDate = new Date(savedCreation);
+            } else {
+                const now = new Date();
+                appState.creationDate = now;
+                localStorage.setItem("cica_creation", now.toISOString());
+            }
+
+            // Stats setup
+            const savedStats = localStorage.getItem("cica_stats");
+            if (savedStats) {
+                try {
+                    appState.stats = JSON.parse(savedStats);
+                } catch(e) {
+                    console.error("Stats parse failed", e);
+                }
+            }
+            updateStatsUI();
+
+            // Checklist tasks setup
+            const savedTasks = localStorage.getItem("cica_tasks");
+            if (savedTasks) {
+                try {
+                    appState.tasks = JSON.parse(savedTasks);
+                } catch(e) {
+                    appState.tasks = [];
+                }
+            }
+            
+            if (appState.tasks.length === 0) {
+                // Populate default tasks
+                appState.tasks = defaultMissions.map((taskStr, index) => {
+                    return {
+                        id: Date.now() + index,
+                        text: taskStr,
+                        completed: false
+                    };
+                });
+                saveTasks();
+            }
+
+            renderChecklist();
+            setupCircumferences();
+            updateCountdown();
+            
+            // Start clock interval
+            setInterval(updateCountdown, 1000);
+
+            // Register event listeners
+            themeToggleBtn.addEventListener("click", toggleTheme);
+            settingsOpenBtn.addEventListener("click", openSettings);
+            settingsCloseBtn.addEventListener("click", closeSettings);
+            settingsSaveBtn.addEventListener("click", saveSettings);
+            
+            tabCountdownBtn.addEventListener("click", () => switchTab("countdown"));
+            tabChecklistBtn.addEventListener("click", () => switchTab("checklist"));
+
+            // Cat interaction listeners
+            petBtn.addEventListener("click", petCat);
+            cicaMascot.addEventListener("click", petCat);
+            feedBtn.addEventListener("click", feedCat);
+            toyToggleBtn.addEventListener("click", toggleToyMode);
+
+            // Add custom task
+            addTaskForm.addEventListener("submit", addCustomTask);
+
+            // Blink interval
+            setInterval(blinkEyeAnimation, 4500);
+
+            // Yarn dragging mechanics
+            setupYarnDraggability();
+        }
+
+        // Apply theme classes
+        function applyTheme(themeStr) {
+            document.documentElement.setAttribute("data-theme", themeStr);
+            const moonPath = themeIcon.querySelector(".moon-path");
+            const sunPath = themeIcon.querySelector(".sun-path");
+            
+            if (themeStr === "dark") {
+                moonPath.style.display = "none";
+                sunPath.style.display = "block";
+            } else {
+                moonPath.style.display = "block";
+                sunPath.style.display = "none";
+            }
+            localStorage.setItem("cica_theme", themeStr);
+        }
+
+        function toggleTheme() {
+            appState.theme = appState.theme === "light" ? "dark" : "light";
+            applyTheme(appState.theme);
+        }
+
+        // Settings Modal
+        function openSettings() {
+            settingsCatName.value = appState.catName;
+            
+            // Format date for datetime-local input
+            const localDate = new Date(appState.arrivalDate.getTime() - appState.arrivalDate.getTimezoneOffset() * 60000);
+            settingsTargetDate.value = localDate.toISOString().slice(0, 16);
+            
+            settingsModal.classList.add("active");
+        }
+
+        function closeSettings() {
+            settingsModal.classList.remove("active");
+        }
+
+        function saveSettings() {
+            const nameVal = settingsCatName.value.trim();
+            const dateVal = settingsTargetDate.value;
+
+            if (!nameVal) return;
+            if (!dateVal) return;
+
+            appState.catName = nameVal;
+            appTitleName.textContent = nameVal + " érkezik";
+            localStorage.setItem("cica_name", nameVal);
+
+            const newArrival = new Date(dateVal);
+            appState.arrivalDate = newArrival;
+            localStorage.setItem("cica_arrival", newArrival.toISOString());
+
+            // Reset countdown creation date to calculate percentage from now
+            appState.creationDate = new Date();
+            localStorage.setItem("cica_creation", appState.creationDate.toISOString());
+
+            closeSettings();
+            updateCountdown();
+            renderChecklist();
+        }
+
+        // Navigation Tabs switching
+        function switchTab(tabName) {
+            if (tabName === "countdown") {
+                tabCountdownBtn.classList.add("active");
+                tabChecklistBtn.classList.remove("active");
+                contentCountdown.classList.add("active");
+                contentChecklist.classList.remove("active");
+            } else {
+                tabCountdownBtn.classList.remove("active");
+                tabChecklistBtn.classList.add("active");
+                contentCountdown.classList.remove("active");
+                contentChecklist.classList.add("active");
+            }
+        }
+
+        // Dynamic stats UI
+        function updateStatsUI() {
+            statPets.textContent = appState.stats.pets;
+            statTreats.textContent = appState.stats.treats;
+            statSwats.textContent = appState.stats.swats;
+            localStorage.setItem("cica_stats", JSON.stringify(appState.stats));
+        }
+
+        // Pet Cat interaction
+        function petCat() {
+            // Eye animation
+            setCatEyes("happy");
+            
+            // Stat update
+            appState.stats.pets++;
+            updateStatsUI();
+
+            // Hearts spawning
+            spawnHearts();
+
+            // Purr talk bubbles
+            const messages = [
+                "Doromb...", 
+                "Miau!", 
+                "Ez nagyon jólesik!", 
+                "Szeretlek!", 
+                "Kérlek ne hagyd abba!", 
+                "Kényelmes..."
+            ];
+            const randMsg = messages[Math.floor(Math.random() * messages.length)];
+            showCatBubble(randMsg);
+
+            // Revert eyes to normal after 2s
+            setTimeout(() => {
+                setCatEyes("normal");
+            }, 2000);
+        }
+
+        // Spawns floating SVG hearts
+        function spawnHearts() {
+            const rect = cicaMascot.getBoundingClientRect();
+            const playgroundRect = playground.getBoundingClientRect();
+            
+            const catCenterX = rect.left - playgroundRect.left + (rect.width / 2);
+            const catCenterY = rect.top - playgroundRect.top + (rect.height / 3);
+
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    heart.setAttribute("class", "heart-svg");
+                    heart.setAttribute("viewBox", "0 0 24 24");
+                    
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z");
+                    heart.appendChild(path);
+
+                    const driftX = (Math.random() - 0.5) * 60;
+                    heart.style.left = `${catCenterX + driftX - 9}px`;
+                    heart.style.top = `${catCenterY - 10}px`;
+                    
+                    // Random sizes & durations
+                    const size = 12 + Math.random() * 12;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    
+                    heartsLayer.appendChild(heart);
+
+                    // Clean up
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1200);
+                }, i * 150);
+            }
+        }
+
+        // Cat speech bubble utility
+        function showCatBubble(text) {
+            if (bubbleTimeout) {
+                clearTimeout(bubbleTimeout);
+            }
+            catBubble.textContent = text;
+            catBubble.classList.add("active");
+
+            bubbleTimeout = setTimeout(() => {
+                catBubble.classList.remove("active");
+            }, 2500);
+        }
+
+        // Set eye state
+        function setCatEyes(state) {
+            eyesNormal.style.display = "none";
+            eyesHappy.style.display = "none";
+            eyesBlink.style.display = "none";
+
+            if (state === "normal") {
+                eyesNormal.style.display = "block";
+            } else if (state === "happy") {
+                eyesHappy.style.display = "block";
+            } else if (state === "blink") {
+                eyesBlink.style.display = "block";
+            }
+        }
+
+        function blinkEyeAnimation() {
+            // Only blink if not in happy mode (which handles its own timeouts)
+            if (eyesHappy.style.display === "none") {
+                setCatEyes("blink");
+                setTimeout(() => {
+                    if (eyesHappy.style.display === "none") {
+                        setCatEyes("normal");
+                    }
+                }, 180);
+            }
+        }
+
+        // Feed Cat interaction
+        function feedCat() {
+            // Block multiple clicks during animation
+            feedBtn.disabled = true;
+            
+            // Sound/Visual Speech bubble
+            showCatBubble("Nyami!");
+
+            // Drop a treat SVG
+            const treat = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            treat.setAttribute("class", "treat-svg");
+            treat.setAttribute("viewBox", "0 0 24 24");
+            
+            // Fish bone path
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M12 3c-1.2 0-2.4.6-3.3 1.7C6.7 6.8 5.7 10.3 6 13.5c.1.9.4 1.7.9 2.5L3.6 19.3c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6l3.3-3.3c.8.5 1.6.8 2.5.9 3.2.3 6.7-.7 8.8-2.7 1.1-.9 1.7-2.1 1.7-3.3 0-3.3-1.8-6.1-5-7.4C14.7 3.3 13.4 3 12 3Zm0 5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1Z");
+            treat.appendChild(path);
+
+            // Starting position: center-top of playground
+            treat.style.top = "-24px";
+            treat.style.left = "calc(50% - 12px)";
+            playground.appendChild(treat);
+
+            // Head rotates up to look at food
+            cicaHead.style.transform = "translateY(-4px) rotate(-5deg)";
+
+            // Fall animation using smooth intervals
+            let topPos = -24;
+            const bowlY = 175; // Y coordinate where bowl sits (approximate bottom)
+            const speed = 6;
+
+            const fallInterval = setInterval(() => {
+                topPos += speed;
+                treat.style.top = `${topPos}px`;
+
+                // Rotate falling fish slightly
+                treat.style.transform = `rotate(${topPos * 1.5}deg)`;
+
+                if (topPos >= bowlY) {
+                    clearInterval(fallInterval);
+                    treat.remove();
+                    
+                    // Sparkle effect
+                    spawnSparkle(bowlY + 6);
+
+                    // Re-enable feed button
+                    feedBtn.disabled = false;
+
+                    // Cat head looks back down and smiles
+                    cicaHead.style.transform = "translateY(0) rotate(5deg)";
+                    setCatEyes("happy");
+
+                    // Stats and speak bubbles update
+                    appState.stats.treats++;
+                    updateStatsUI();
+
+                    const feedMessages = [
+                        "Még egyet kérnék!",
+                        "Ez rendkívül finom volt!",
+                        "Köszi a finom falatot!",
+                        "Nagyon finom halcsont!",
+                        "Dorombolóan jóízű!"
+                    ];
+                    const randMsg = feedMessages[Math.floor(Math.random() * feedMessages.length)];
+                    showCatBubble(randMsg);
+
+                    setTimeout(() => {
+                        cicaHead.style.transform = "none";
+                        setCatEyes("normal");
+                    }, 2000);
+                }
+            }, 16);
+        }
+
+        // Sparkle burst helper
+        function spawnSparkle(yCoord) {
+            const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            sparkle.setAttribute("class", "sparkle-svg");
+            sparkle.setAttribute("viewBox", "0 0 24 24");
+            
+            // Burst/star path
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z");
+            sparkle.appendChild(path);
+
+            sparkle.style.top = `${yCoord - 16}px`;
+            sparkle.style.left = "calc(50% - 16px)";
+            playground.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 4000);
+        }
+
+        // Yarn Toy mode toggle
+        function toggleToyMode() {
+            yarnActive = !yarnActive;
+            
+            if (yarnActive) {
+                toyToggleBtn.classList.add("active");
+                yarnBall.style.display = "block";
+                toyLabel.classList.add("active");
+                
+                // Reposition to default bottom-left
+                yarnPos = { x: 20, y: 75 };
+                updateYarnPosUI();
+                
+                showCatBubble("Játszunk!");
+            } else {
+                toyToggleBtn.classList.remove("active");
+                yarnBall.style.display = "none";
+                toyLabel.classList.remove("active");
+                cicaHead.style.transform = "none";
+            }
+        }
+
+        function updateYarnPosUI() {
+            yarnBall.style.left = `${yarnPos.x}%`;
+            yarnBall.style.top = `${yarnPos.y}%`;
+            yarnBall.style.transform = "translate(-50%, -50%)";
+            
+            // Direct cat head track
+            trackYarnWithCatHead();
+        }
+
+        // Head tracking mechanics
+        function trackYarnWithCatHead() {
+            if (!yarnActive) return;
+
+            // Playground sizes
+            const playWidth = playground.clientWidth;
+            const playHeight = playground.clientHeight;
+
+            // Convert yarn percentages back to absolute pixels relative to playground
+            const yarnAbsX = (yarnPos.x / 100) * playWidth;
+            const yarnAbsY = (yarnPos.y / 100) * playHeight;
+
+            // Cat head center coordinates inside the playground card (relative pixels)
+            const catRect = cicaMascot.getBoundingClientRect();
+            const playRect = playground.getBoundingClientRect();
+            const catCenterX = catRect.left - playRect.left + (catRect.width / 2);
+            const catCenterY = catRect.top - playRect.top + (catRect.height * 0.4); // Head offset
+
+            // Compute delta angle
+            const deltaX = yarnAbsX - catCenterX;
+            const deltaY = yarnAbsY - catCenterY;
+
+            // Calculate rotation angle (clamp it to prevent spinny head)
+            let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            
+            // Normalize angle to center
+            angle = angle - 90; // Face aligns vertically
+            
+            // Clamp rotation between -25 and 25 degrees
+            if (angle < -180) angle += 360;
+            if (angle > 180) angle -= 360;
+            const clampAngle = Math.max(-25, Math.min(25, angle));
+
+            // Small shifting translation
+            const shiftX = Math.max(-5, Math.min(5, deltaX * 0.05));
+            const shiftY = Math.max(-4, Math.min(4, deltaY * 0.03));
+
+            cicaHead.style.transform = `translate(${shiftX}px, ${shiftY}px) rotate(${clampAngle}deg)`;
+        }
+
+        // Yarn drag handlers
+        function setupYarnDraggability() {
+            // Touch & Mouse moves inside the playground card tracking
+            const handleMove = (e) => {
+                if (!yarnActive) return;
+                
+                let clientX, clientY;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                const rect = playground.getBoundingClientRect();
+                
+                // Get relative mouse position inside card
+                let x = clientX - rect.left;
+                let y = clientY - rect.top;
+
+                // Clamp within bounds (in pixels)
+                x = Math.max(18, Math.min(rect.width - 18, x));
+                y = Math.max(18, Math.min(rect.height - 18, y));
+
+                // Save as percentages
+                yarnPos.x = (x / rect.width) * 100;
+                yarnPos.y = (y / rect.height) * 100;
+
+                updateYarnPosUI();
+            };
+
+            // Drag states
+            const startDrag = () => {
+                isDraggingYarn = true;
+                setCatEyes("normal");
+            };
+
+            const endDrag = () => {
+                if (!isDraggingYarn) return;
+                isDraggingYarn = false;
+
+                // Cat tries to swat at yarn
+                checkSwatInteraction();
+            };
+
+            yarnBall.addEventListener("mousedown", startDrag);
+            yarnBall.addEventListener("touchstart", startDrag, { passive: true });
+
+            window.addEventListener("mousemove", (e) => {
+                if (isDraggingYarn) handleMove(e);
+            });
+            window.addEventListener("touchmove", (e) => {
+                if (isDraggingYarn) handleMove(e);
+            }, { passive: false });
+
+            window.addEventListener("mouseup", endDrag);
+            window.addEventListener("touchend", endDrag);
+
+            // General click tracking when mouse moves inside playground,
+            // even if not dragging, cat looks at pointer
+            playground.addEventListener("mousemove", (e) => {
+                if (yarnActive && !isDraggingYarn) {
+                    // Let cat head follow the floating mouse position
+                    const rect = playground.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+                    
+                    // Temporarily calculate head rotation without updating yarn
+                    const playWidth = playground.clientWidth;
+                    const playHeight = playground.clientHeight;
+                    
+                    const catRect = cicaMascot.getBoundingClientRect();
+                    const playRect = playground.getBoundingClientRect();
+                    const catCenterX = catRect.left - playRect.left + (catRect.width / 2);
+                    const catCenterY = catRect.top - playRect.top + (catRect.height * 0.4);
+                    
+                    const deltaX = mouseX - catCenterX;
+                    const deltaY = mouseY - catCenterY;
+                    let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 90;
+                    if (angle < -180) angle += 360;
+                    if (angle > 180) angle -= 360;
+                    const clampAngle = Math.max(-20, Math.min(20, angle));
+                    
+                    cicaHead.style.transform = `translate(${Math.max(-4, Math.min(4, deltaX * 0.03))}px, ${Math.max(-3, Math.min(3, deltaY * 0.02))}px) rotate(${clampAngle}deg)`;
+                }
+            });
+        }
+
+        // Triggered when user releases the yarn ball
+        function checkSwatInteraction() {
+            // If yarn ball coordinates are close to the cat paws/body
+            const distPawX = Math.abs(yarnPos.x - 50); // Cat center is 50%
+            const distPawY = Math.abs(yarnPos.y - 70); // Paw row is ~70%
+
+            if (distPawX < 20 && distPawY < 20) {
+                // Swat triggers!
+                appState.stats.swats++;
+                updateStatsUI();
+
+                setCatEyes("happy");
+                showCatBubble("Elkaptam!");
+
+                // Quick swat animations
+                cicaHead.style.transform = "translateY(5px) scale(0.95)";
+                
+                // Spawn a star animation at the yarn position
+                const rect = playground.getBoundingClientRect();
+                const starX = (yarnPos.x / 100) * rect.width;
+                const starY = (yarnPos.y / 100) * rect.height;
+                spawnSparkle(starY);
+
+                // Quick tail swing
+                const tail = document.querySelector(".cat-tail");
+                tail.style.animation = "none";
+                // Trigger reflow
+                void tail.offsetWidth;
+                tail.style.transform = "rotate(25deg)";
+
+                setTimeout(() => {
+                    tail.style.animation = "tailWag 1s ease-in-out infinite alternate";
+                    cicaHead.style.transform = "none";
+                    setCatEyes("normal");
+                }, 1200);
+            }
+        }
+
+        // Circular progress calculations
+        const circleRadius = 39;
+        const circleCircumference = 2 * Math.PI * circleRadius; // ~245.04
+
+        function setupCircumferences() {
+            const rings = [ringDays, ringHours, ringMinutes, ringSeconds];
+            rings.forEach(ring => {
+                if (ring) {
+                    ring.style.strokeDasharray = `${circleCircumference} ${circleCircumference}`;
+                    ring.style.strokeDashoffset = circleCircumference;
+                }
+            });
+        }
+
+        function setRingProgress(ringElement, percent) {
+            if (!ringElement) return;
+            const progress = Math.max(0, Math.min(100, percent));
+            const offset = circleCircumference - (progress / 100) * circleCircumference;
+            ringElement.style.strokeDashoffset = offset;
+        }
+
+        // Main timer countdown function
         function updateCountdown() {
             const now = new Date();
-            const diff = arrivalDate - now;
-
-            const missionBox = document.getElementById("mission");
+            const diff = appState.arrivalDate - now;
 
             if (diff <= 0) {
-                document.getElementById("days").textContent = 0;
-                document.getElementById("hours").textContent = 0;
-                document.getElementById("minutes").textContent = 0;
-                document.getElementById("seconds").textContent = 0;
+                // Cat arrived!
+                valDays.textContent = "00";
+                valHours.textContent = "00";
+                valMinutes.textContent = "00";
+                valSeconds.textContent = "00";
 
-                missionBox.textContent = "A cica hazajött. Mostantól ő az új projektmenedzser.";
-                missionBox.classList.add("done");
+                setRingProgress(ringDays, 100);
+                setRingProgress(ringHours, 100);
+                setRingProgress(ringMinutes, 100);
+                setRingProgress(ringSeconds, 100);
+
+                dailyQuestText.textContent = appState.catName + " hazatért! Mostantól ő irányítja a háztartást.";
                 return;
             }
 
@@ -174,17 +1981,149 @@
             const minutes = Math.floor((diff / (1000 * 60)) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
 
-            document.getElementById("days").textContent = days;
-            document.getElementById("hours").textContent = hours;
-            document.getElementById("minutes").textContent = minutes;
-            document.getElementById("seconds").textContent = seconds;
+            // Pad strings
+            valDays.textContent = String(days).padStart(2, '0');
+            valHours.textContent = String(hours).padStart(2, '0');
+            valMinutes.textContent = String(minutes).padStart(2, '0');
+            valSeconds.textContent = String(seconds).padStart(2, '0');
 
-            const missionIndex = Math.max(0, missions.length - days - 1);
-            missionBox.textContent = "Mai küldetés: " + missions[missionIndex];
+            // Ring progress percentages
+            // Seconds: 0-59 (runs backward to show depletion or forward to show progress)
+            setRingProgress(ringSeconds, (seconds / 60) * 100);
+            setRingProgress(ringMinutes, (minutes / 60) * 100);
+            setRingProgress(ringHours, (hours / 24) * 100);
+
+            // For Days, we check relative to the overall duration since creationDate
+            const totalDuration = appState.arrivalDate - appState.creationDate;
+            if (totalDuration > 0) {
+                const elapsed = totalDuration - diff;
+                const daysPercent = (elapsed / totalDuration) * 100;
+                setRingProgress(ringDays, daysPercent);
+            } else {
+                setRingProgress(ringDays, 100);
+            }
+
+            // Update daily quest text matching countdown days
+            const questIndex = Math.max(0, defaultMissions.length - days - 1);
+            const rawQuest = defaultMissions[Math.min(questIndex, defaultMissions.length - 1)];
+            
+            // Format dynamic quest name
+            const formattedQuest = rawQuest.replace(/cica/g, appState.catName.toLowerCase())
+                                           .replace(/Cica/g, appState.catName)
+                                           .replace(/cicá/g, appState.catName.toLowerCase() + "nak");
+            
+            dailyQuestText.textContent = formattedQuest;
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        // Checklist management
+        function saveTasks() {
+            localStorage.setItem("cica_tasks", JSON.stringify(appState.tasks));
+            updateChecklistProgress();
+        }
+
+        // Checklist dynamic stats
+        function updateChecklistProgress() {
+            if (appState.tasks.length === 0) {
+                checklistPercentText.textContent = "0%";
+                checklistProgressFill.style.width = "0%";
+                return;
+            }
+
+            const completedCount = appState.tasks.filter(t => t.completed).length;
+            const percent = Math.round((completedCount / appState.tasks.length) * 100);
+
+            checklistPercentText.textContent = `${percent}%`;
+            checklistProgressFill.style.width = `${percent}%`;
+        }
+
+        function renderChecklist() {
+            checklistList.innerHTML = "";
+
+            appState.tasks.forEach(task => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = `checklist-item ${task.completed ? "completed" : ""}`;
+
+                // Replace words dynamically with the cat name if matches
+                const taskText = task.text.replace(/cica/g, appState.catName.toLowerCase())
+                                          .replace(/Cica/g, appState.catName)
+                                          .replace(/cicá/g, appState.catName.toLowerCase() + "nak");
+
+                itemDiv.innerHTML = `
+                    <label class="checklist-item-content" onclick="toggleTask(${task.id})">
+                        <input type="checkbox" ${task.completed ? "checked" : ""} />
+                        <div class="custom-checkbox">
+                            <!-- Clean SVG check icon -->
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="checklist-text">${taskText}</span>
+                    </label>
+                    <button class="delete-task-btn" onclick="deleteTask(${task.id})" aria-label="Törlés">
+                        <!-- Trash SVG -->
+                        <svg viewBox="0 0 24 24">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12ZM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4Z"/>
+                        </svg>
+                    </button>
+                `;
+
+                checklistList.appendChild(itemDiv);
+            });
+
+            updateChecklistProgress();
+        }
+
+        // Global functions called via checklist HTML handlers
+        window.toggleTask = function(taskId) {
+            appState.tasks = appState.tasks.map(task => {
+                if (task.id === taskId) {
+                    const newStatus = !task.completed;
+                    
+                    // Cat reacts to ticking tasks!
+                    if (newStatus) {
+                        setCatEyes("happy");
+                        showCatBubble("Szép munka!");
+                        setTimeout(() => setCatEyes("normal"), 1500);
+                    }
+                    
+                    return { ...task, completed: newStatus };
+                }
+                return task;
+            });
+            saveTasks();
+            renderChecklist();
+        };
+
+        window.deleteTask = function(taskId) {
+            appState.tasks = appState.tasks.filter(t => t.id !== taskId);
+            saveTasks();
+            renderChecklist();
+        };
+
+        function addCustomTask() {
+            const taskText = newTaskInput.value.trim();
+            if (!taskText) return;
+
+            const newTask = {
+                id: Date.now(),
+                text: taskText,
+                completed: false
+            };
+
+            appState.tasks.push(newTask);
+            saveTasks();
+            renderChecklist();
+            
+            newTaskInput.value = "";
+            
+            // Scroll to bottom of checklist
+            setTimeout(() => {
+                checklistList.scrollTop = checklistList.scrollHeight;
+            }, 100);
+        }
+
+        // Bootstrapping the app
+        window.addEventListener("DOMContentLoaded", initApp);
     </script>
 </body>
 
