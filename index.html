@@ -193,6 +193,22 @@
             fill: currentColor;
         }
 
+        .sun-path {
+            display: none;
+        }
+
+        .moon-path {
+            display: block;
+        }
+
+        [data-theme="dark"] .sun-path {
+            display: block !important;
+        }
+
+        [data-theme="dark"] .moon-path {
+            display: none !important;
+        }
+
         /* Cat Playground */
         .playground-card {
             background: linear-gradient(to bottom, var(--room-wall) 0%, var(--room-wall) 73%, var(--room-skirting) 73%, var(--room-skirting) 75%, var(--room-floor) 75%, var(--room-floor) 100%);
@@ -1459,7 +1475,7 @@
         // State variables
         let appState = {
             catName: "Mokka",
-            arrivalDate: new Date("2026-06-28T12:00:00"),
+            arrivalDate: new Date("2026-06-26T18:00:00"),
             creationDate: new Date("2026-06-01T12:00:00"),
             theme: "light",
             stats: {
@@ -1477,7 +1493,6 @@
         // UI Selectors
         const appTitleName = document.getElementById("app-title-name");
         const themeToggleBtn = document.getElementById("theme-toggle-btn");
-        const themeIcon = document.getElementById("theme-icon");
         const wardrobeOpenBtn = document.getElementById("wardrobe-open-btn");
         const wardrobeDrawer = document.getElementById("wardrobe-drawer");
         const wardrobeOptBtns = document.querySelectorAll(".wardrobe-opt-btn");
@@ -1638,7 +1653,7 @@
             // Settings setup (hardcoded)
             appState.catName = "Mokka";
             appTitleName.textContent = appState.catName + " érkezik";
-            appState.arrivalDate = new Date("2026-06-28T12:00:00");
+            appState.arrivalDate = new Date("2026-06-26T18:00:00");
             appState.creationDate = new Date("2026-06-01T12:00:00");
 
             // Clean up obsolete localStorage items to avoid confusion
@@ -1736,16 +1751,6 @@
         // Apply theme classes
         function applyTheme(themeStr) {
             document.documentElement.setAttribute("data-theme", themeStr);
-            const moonPath = themeIcon.querySelector(".moon-path");
-            const sunPath = themeIcon.querySelector(".sun-path");
-
-            if (themeStr === "dark") {
-                moonPath.style.display = "none";
-                sunPath.style.display = "block";
-            } else {
-                moonPath.style.display = "block";
-                sunPath.style.display = "none";
-            }
             localStorage.setItem("cica_theme", themeStr);
         }
 
