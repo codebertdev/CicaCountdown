@@ -1699,6 +1699,9 @@
 
             wardrobeOptBtns.forEach(btn => {
                 btn.addEventListener("click", () => {
+                    if (isSleeping) {
+                        wakeUpCat();
+                    }
                     const type = btn.getAttribute("data-type");
                     const value = btn.getAttribute("data-value");
 
@@ -1807,6 +1810,10 @@
 
         // Pet Cat interaction
         function petCat() {
+            if (isSleeping) {
+                wakeUpCat();
+            }
+
             // Haptic vibration feedback for mobile devices (purr sensation)
             if (navigator.vibrate) {
                 navigator.vibrate([35, 80, 45, 80, 35]);
@@ -1911,9 +1918,10 @@
         let isSleeping = false;
 
         function resetSleepTimer() {
-            if (isSleeping) {
-                wakeUpCat();
-            }
+            // General page activity (like mouse movements) should only keep the cat awake,
+            // but NOT wake it up once it is already asleep.
+            if (isSleeping) return;
+
             clearTimeout(sleepTimeout);
             sleepTimeout = setTimeout(goToSleep, 15000); // 15 seconds
         }
@@ -1989,6 +1997,10 @@
 
         // Feed Cat interaction
         function feedCat() {
+            if (isSleeping) {
+                wakeUpCat();
+            }
+
             // Block multiple clicks during animation
             feedBtn.disabled = true;
 
@@ -2085,6 +2097,10 @@
 
         // Yarn Toy mode toggle
         function toggleToyMode() {
+            if (isSleeping) {
+                wakeUpCat();
+            }
+
             yarnActive = !yarnActive;
 
             if (yarnActive) {
