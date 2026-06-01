@@ -49,6 +49,14 @@
             --cat-nose-color: #27272a;
             --cat-mouth-color: #52525b;
             --cat-whisker-color: #3f3f46;
+
+            /* Room & Cushion theme colors */
+            --bed-color-light: #fff1f2;
+            --bed-color-mid: #fecdd3;
+            --bed-color-dark: #fda4af;
+            --room-wall: #f1ebd9;
+            --room-floor: #d8cbb5;
+            --room-skirting: #a18262;
         }
 
         [data-theme="dark"] {
@@ -83,6 +91,14 @@
             --cat-nose-color: #1e1e20;
             --cat-mouth-color: #44444a;
             --cat-whisker-color: #333338;
+
+            /* Room & Cushion theme colors */
+            --bed-color-light: #4c0519;
+            --bed-color-mid: #881337;
+            --bed-color-dark: #9f1239;
+            --room-wall: #1e293b;
+            --room-floor: #0f172a;
+            --room-skirting: #334155;
         }
 
         * {
@@ -179,18 +195,15 @@
 
         /* Cat Playground */
         .playground-card {
-            background: var(--bg-secondary);
+            background: linear-gradient(to bottom, var(--room-wall) 0%, var(--room-wall) 73%, var(--room-skirting) 73%, var(--room-skirting) 75%, var(--room-floor) 75%, var(--room-floor) 100%);
             border-radius: 24px;
             padding: 16px;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             margin-bottom: 24px;
             height: 220px;
             overflow: hidden;
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--card-border);
         }
 
         .toy-active-label {
@@ -214,12 +227,16 @@
         /* SVG Cat animations */
         .cat-svg {
             cursor: pointer;
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 2;
             transition: transform 0.2s ease;
         }
 
         .cat-svg:hover {
-            transform: scale(1.02);
+            transform: translateX(-50%) scale(1.02);
         }
 
         .cat-tail {
@@ -1141,6 +1158,11 @@
                         <stop offset="0%" stop-color="var(--cat-color-light)" />
                         <stop offset="100%" stop-color="var(--cat-color-dark)" />
                     </linearGradient>
+                    <radialGradient id="bedGrad" cx="50%" cy="30%" r="50%">
+                        <stop offset="0%" stop-color="var(--bed-color-light)" />
+                        <stop offset="70%" stop-color="var(--bed-color-mid)" />
+                        <stop offset="100%" stop-color="var(--bed-color-dark)" />
+                    </radialGradient>
                 </defs>
 
                 <!-- Tail -->
@@ -1148,6 +1170,16 @@
                     <path class="cat-tail"
                         d="M 125 150 C 145 150, 160 130, 155 100 C 150 70, 175 60, 170 45 C 165 30, 140 45, 145 70 C 150 95, 135 125, 115 135 Z"
                         fill="url(#catBodyGrad)" />
+                </g>
+
+                <!-- Cozy Cat Bed/Cushion (fekvőke) -->
+                <g class="cat-bed">
+                    <!-- Soft floor shadow under the cushion -->
+                    <ellipse cx="100" cy="158" rx="46" ry="12" fill="rgba(0, 0, 0, 0.18)" />
+                    <!-- Fluffy cushion donut body -->
+                    <ellipse cx="100" cy="155" rx="42" ry="11" fill="url(#bedGrad)" />
+                    <!-- Cushion inner layer where cat sits -->
+                    <ellipse cx="100" cy="153" rx="36" ry="7" fill="var(--bed-color-light)" opacity="0.9" />
                 </g>
 
                 <!-- Body Tabby Stripes (Undercoat) -->
