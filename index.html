@@ -946,7 +946,7 @@
             pointer-events: none;
             z-index: 1;
             background-image: var(--paw-bg);
-            background-size: 120px 120px;
+            background-size: 160px 160px;
             background-repeat: repeat;
             animation: panBg 45s linear infinite;
         }
@@ -956,7 +956,7 @@
                 background-position: 0 0;
             }
             100% {
-                background-position: 120px 120px;
+                background-position: 160px 160px;
             }
         }
 
@@ -1776,7 +1776,6 @@
 
                     // Cat reacts to dressing up!
                     setCatEyes("happy");
-                    showCatBubble("Tetszik ez a ruha!");
                     setTimeout(() => setCatEyes("normal"), 1500);
                 });
             });
