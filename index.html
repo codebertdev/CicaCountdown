@@ -930,6 +930,126 @@
             color: var(--text-primary);
         }
 
+        /* Floating Paw Background */
+        .paw-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .bg-paw {
+            position: absolute;
+            bottom: -50px;
+            fill: var(--text-primary);
+            opacity: 0.03;
+            animation: floatUp 20s linear infinite;
+            transition: fill 0.3s ease, opacity 0.3s ease;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.03;
+            }
+            90% {
+                opacity: 0.03;
+            }
+            100% {
+                transform: translateY(-115vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Wardrobe Drawer */
+        .wardrobe-drawer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.3s ease, padding 0.3s ease;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            margin-bottom: 0;
+            padding: 0 16px;
+        }
+
+        .wardrobe-drawer.active {
+            max-height: 300px;
+            margin-bottom: 24px;
+            padding: 16px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .wardrobe-header {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .wardrobe-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wardrobe-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .wardrobe-group-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .wardrobe-options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            flex-grow: 1;
+        }
+
+        .wardrobe-opt-btn {
+            background: var(--bg-active);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .wardrobe-opt-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .wardrobe-opt-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 2px 6px rgba(255, 139, 119, 0.2);
+        }
+
         /* Responsive adaptations */
         @media (max-width: 480px) {
             .app-container {
@@ -968,6 +1088,50 @@
 </head>
 
 <body>
+    <!-- Floating Paw Background -->
+    <div class="paw-bg">
+        <!-- Paw 1 -->
+        <svg class="bg-paw" style="left: 8%; width: 20px; height: 20px; animation-duration: 25s; animation-delay: 0s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 2 -->
+        <svg class="bg-paw" style="left: 25%; width: 25px; height: 25px; animation-duration: 18s; animation-delay: -5s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 3 -->
+        <svg class="bg-paw" style="left: 45%; width: 18px; height: 18px; animation-duration: 30s; animation-delay: -2s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 4 -->
+        <svg class="bg-paw" style="left: 65%; width: 22px; height: 22px; animation-duration: 22s; animation-delay: -10s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 5 -->
+        <svg class="bg-paw" style="left: 85%; width: 28px; height: 28px; animation-duration: 16s; animation-delay: -3s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 6 -->
+        <svg class="bg-paw" style="left: 15%; width: 22px; height: 22px; animation-duration: 28s; animation-delay: -15s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 7 -->
+        <svg class="bg-paw" style="left: 55%; width: 26px; height: 26px; animation-duration: 20s; animation-delay: -8s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+        <!-- Paw 8 -->
+        <svg class="bg-paw" style="left: 75%; width: 16px; height: 16px; animation-duration: 32s; animation-delay: -12s;" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 14c-3.3 0-6 2.2-6 5 0 2.2 2.7 4 6 4s6-1.8 6-4c0-2.8-2.7-5-6-5Z" />
+            <circle cx="7" cy="11" r="2.5" /><circle cx="12.5" cy="7.5" r="2.8" /><circle cx="17.5" cy="7.5" r="2.8" /><circle cx="23" cy="11" r="2.5" />
+        </svg>
+    </div>
+
     <div class="app-container">
 
         <!-- Header -->
@@ -986,6 +1150,12 @@
                         <!-- Sun rays & circle (hidden in light mode, toggled dynamically) -->
                         <path class="sun-path" style="display: none;"
                             d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1Zm0 14a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1ZM5.22 5.22a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 0 1-1.42 1.42L5.22 6.64a1 1 0 0 1 0-1.42Zm10.54 10.54a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 0 1-1.42 1.42l-1.41-1.41a1 1 0 0 1 0-1.42ZM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Zm14 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1ZM6.64 15.66a1 1 0 0 1 0 1.41l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.41-1.41a1 1 0 0 1 1.42 0Zm10.54-10.54a1 1 0 0 1 0 1.42l-1.41 1.41a1 1 0 0 1-1.42-1.42l1.41-1.41a1 1 0 0 1 1.42 0Z" />
+                    </svg>
+                </button>
+                <!-- Wardrobe Button -->
+                <button class="icon-btn" id="wardrobe-open-btn" aria-label="Öltöztetés">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a3 3 0 0 0-3 3h2a1 1 0 0 1 2 0 1.5 1.5 0 0 0 1.5 1.5h1.7l-4.7 3.5-9.3 7A2 2 0 0 0 4 20.3V21h16v-.7a2 2 0 0 0-1.2-3.3l-9.3-7-1.5-1.1V5a1 1 0 0 1 1-1 1 1 0 0 0 0-2H12Zm-6.5 16.5 6.5-4.9 6.5 4.9H5.5Z"/>
                     </svg>
                 </button>
                 <!-- Settings Button -->
@@ -1120,6 +1290,53 @@
                         stroke-linecap="round" />
                     <line x1="142" y1="94" x2="157" y2="96" stroke="var(--cat-whisker-color)" stroke-width="1.2"
                         stroke-linecap="round" />
+
+                    <!-- Accessories - Glasses -->
+                    <g id="acc-sunglasses" class="cat-accessory" style="display: none;">
+                        <ellipse cx="86" cy="78" rx="10" ry="7" fill="#111827" />
+                        <ellipse cx="114" cy="78" rx="10" ry="7" fill="#111827" />
+                        <rect x="94" y="76" width="12" height="2.5" fill="#111827" />
+                        <line x1="82" y1="75" x2="88" y2="81" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+                        <line x1="110" y1="75" x2="116" y2="81" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+                    </g>
+                    <g id="acc-glasses" class="cat-accessory" style="display: none;">
+                        <circle cx="86" cy="78" r="10" fill="none" stroke="#eab308" stroke-width="1.8" />
+                        <circle cx="114" cy="78" r="10" fill="none" stroke="#eab308" stroke-width="1.8" />
+                        <path d="M 96 78 Q 100 75 104 78" fill="none" stroke="#eab308" stroke-width="1.8" />
+                    </g>
+
+                    <!-- Accessories - Hats -->
+                    <g id="acc-top-hat" class="cat-accessory" style="display: none;">
+                        <ellipse cx="100" cy="46" rx="22" ry="3" fill="#18181b" />
+                        <rect x="86" y="24" width="28" height="20" rx="1.5" fill="#18181b" />
+                        <rect x="86" y="41" width="28" height="3" fill="#ef4444" />
+                    </g>
+                    <g id="acc-santa-hat" class="cat-accessory" style="display: none;">
+                        <path d="M 80 44 L 100 16 L 120 44 Z" fill="#ef4444" />
+                        <rect x="76" y="41" width="48" height="6" rx="3" fill="#f8fafc" />
+                        <circle cx="100" cy="16" r="4.5" fill="#f8fafc" />
+                    </g>
+                    <g id="acc-crown" class="cat-accessory" style="display: none;">
+                        <polygon points="86,44 82,28 92,35 100,22 108,35 118,28 114,44" fill="#facc15" stroke="#ca8a04" stroke-width="1.2" stroke-linejoin="round" />
+                        <circle cx="82" cy="28" r="1.2" fill="#ef4444" />
+                        <circle cx="100" cy="22" r="1.2" fill="#3b82f6" />
+                        <circle cx="118" cy="28" r="1.2" fill="#ef4444" />
+                    </g>
+
+                    <!-- Accessories - Neckwear -->
+                    <g id="acc-bow-tie" class="cat-accessory" style="display: none;">
+                        <polygon points="100,104 90,98 90,110" fill="#ef4444" />
+                        <polygon points="100,104 110,98 110,110" fill="#ef4444" />
+                        <circle cx="100" cy="104" r="3.5" fill="#b91c1c" />
+                    </g>
+                    <g id="acc-scarf" class="cat-accessory" style="display: none;">
+                        <rect x="84" y="100" width="32" height="6" rx="3" fill="#ef4444" />
+                        <rect x="89" y="100" width="3" height="6" fill="#f8fafc" />
+                        <rect x="97" y="100" width="3" height="6" fill="#f8fafc" />
+                        <rect x="105" y="100" width="3" height="6" fill="#f8fafc" />
+                        <path d="M 108 105 L 112 120 L 118 118 L 114 105 Z" fill="#ef4444" />
+                        <line x1="112" y1="113" x2="117" y2="112" stroke="#f8fafc" stroke-width="2" />
+                    </g>
                 </g>
             </svg>
 
@@ -1167,6 +1384,40 @@
                 </svg>
                 Fonáljáték
             </button>
+        </div>
+
+        <!-- Wardrobe Selection Drawer -->
+        <div class="wardrobe-drawer" id="wardrobe-drawer">
+            <div class="wardrobe-header">
+                <span>Öltöztesd fel a cicát!</span>
+            </div>
+            <div class="wardrobe-content">
+                <div class="wardrobe-group">
+                    <span class="wardrobe-group-title">Szemüvegek</span>
+                    <div class="wardrobe-options">
+                        <button class="wardrobe-opt-btn active" data-type="glasses" data-value="none">Nincs</button>
+                        <button class="wardrobe-opt-btn" data-type="glasses" data-value="sunglasses">Menő</button>
+                        <button class="wardrobe-opt-btn" data-type="glasses" data-value="glasses">Kerek</button>
+                    </div>
+                </div>
+                <div class="wardrobe-group">
+                    <span class="wardrobe-group-title">Fejrevalók</span>
+                    <div class="wardrobe-options">
+                        <button class="wardrobe-opt-btn active" data-type="hat" data-value="none">Nincs</button>
+                        <button class="wardrobe-opt-btn" data-type="hat" data-value="top-hat">Bűvész</button>
+                        <button class="wardrobe-opt-btn" data-type="hat" data-value="santa-hat">Mikulás</button>
+                        <button class="wardrobe-opt-btn" data-type="hat" data-value="crown">Korona</button>
+                    </div>
+                </div>
+                <div class="wardrobe-group">
+                    <span class="wardrobe-group-title">Nyakbavalók</span>
+                    <div class="wardrobe-options">
+                        <button class="wardrobe-opt-btn active" data-type="neck" data-value="none">Nincs</button>
+                        <button class="wardrobe-opt-btn" data-type="neck" data-value="bow-tie">Masni</button>
+                        <button class="wardrobe-opt-btn" data-type="neck" data-value="scarf">Sál</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Navigation Tabs -->
@@ -1371,6 +1622,11 @@
                 pets: 0,
                 treats: 0,
                 swats: 0
+            },
+            wardrobe: {
+                glasses: "none",
+                hat: "none",
+                neck: "none"
             }
         };
 
@@ -1378,6 +1634,9 @@
         const appTitleName = document.getElementById("app-title-name");
         const themeToggleBtn = document.getElementById("theme-toggle-btn");
         const themeIcon = document.getElementById("theme-icon");
+        const wardrobeOpenBtn = document.getElementById("wardrobe-open-btn");
+        const wardrobeDrawer = document.getElementById("wardrobe-drawer");
+        const wardrobeOptBtns = document.querySelectorAll(".wardrobe-opt-btn");
         const settingsOpenBtn = document.getElementById("settings-open-btn");
         const settingsCloseBtn = document.getElementById("settings-close-btn");
         const settingsSaveBtn = document.getElementById("settings-save-btn");
@@ -1482,6 +1741,17 @@
             }
             updateStatsUI();
 
+            // Wardrobe setup
+            const savedWardrobe = localStorage.getItem("cica_wardrobe");
+            if (savedWardrobe) {
+                try {
+                    appState.wardrobe = JSON.parse(savedWardrobe);
+                } catch (e) {
+                    console.error("Wardrobe parse failed", e);
+                }
+            }
+            applyWardrobe();
+
             // Checklist tasks setup
             const savedTasks = localStorage.getItem("cica_tasks");
             if (savedTasks) {
@@ -1513,6 +1783,35 @@
 
             // Register event listeners
             themeToggleBtn.addEventListener("click", toggleTheme);
+            
+            wardrobeOpenBtn.addEventListener("click", () => {
+                wardrobeDrawer.classList.toggle("active");
+            });
+
+            wardrobeOptBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const type = btn.getAttribute("data-type");
+                    const value = btn.getAttribute("data-value");
+
+                    // Update state
+                    appState.wardrobe[type] = value;
+
+                    // Update active button classes in this group
+                    const groupBtns = wardrobeDrawer.querySelectorAll(`.wardrobe-opt-btn[data-type="${type}"]`);
+                    groupBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    // Apply to cat and save
+                    applyWardrobe();
+                    localStorage.setItem("cica_wardrobe", JSON.stringify(appState.wardrobe));
+
+                    // Cat reacts to dressing up!
+                    setCatEyes("happy");
+                    showCatBubble("Tetszik ez a ruha!");
+                    setTimeout(() => setCatEyes("normal"), 1500);
+                });
+            });
+
             settingsOpenBtn.addEventListener("click", openSettings);
             settingsCloseBtn.addEventListener("click", closeSettings);
             settingsSaveBtn.addEventListener("click", saveSettings);
@@ -1555,6 +1854,45 @@
         function toggleTheme() {
             appState.theme = appState.theme === "light" ? "dark" : "light";
             applyTheme(appState.theme);
+        }
+
+        // Apply selected wardrobe items to the cat SVG
+        function applyWardrobe() {
+            // Hide all accessories first
+            const accessories = document.querySelectorAll(".cat-accessory");
+            accessories.forEach(acc => acc.style.display = "none");
+
+            // Show active glasses
+            if (appState.wardrobe.glasses !== "none") {
+                const glassesEl = document.getElementById(`acc-${appState.wardrobe.glasses}`);
+                if (glassesEl) glassesEl.style.display = "block";
+            }
+
+            // Show active hat
+            if (appState.wardrobe.hat !== "none") {
+                const hatEl = document.getElementById(`acc-${appState.wardrobe.hat}`);
+                if (hatEl) hatEl.style.display = "block";
+            }
+
+            // Show active neckwear
+            if (appState.wardrobe.neck !== "none") {
+                const neckEl = document.getElementById(`acc-${appState.wardrobe.neck}`);
+                if (neckEl) neckEl.style.display = "block";
+            }
+
+            // Sync active button classes in wardrobe drawer based on state
+            const types = ["glasses", "hat", "neck"];
+            types.forEach(type => {
+                const activeVal = appState.wardrobe[type];
+                const btns = wardrobeDrawer.querySelectorAll(`.wardrobe-opt-btn[data-type="${type}"]`);
+                btns.forEach(btn => {
+                    if (btn.getAttribute("data-value") === activeVal) {
+                        btn.classList.add("active");
+                    } else {
+                        btn.classList.remove("active");
+                    }
+                });
+            });
         }
 
         // Settings Modal
