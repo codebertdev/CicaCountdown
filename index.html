@@ -54,7 +54,7 @@
             --bed-color-light: #fff1f2;
             --bed-color-mid: #fecdd3;
             --bed-color-dark: #fda4af;
-            --room-wall: #f1ebd9;
+            --room-wall: #e6f0fa;
             --room-floor: #d8cbb5;
             --room-skirting: #a18262;
         }
@@ -228,7 +228,7 @@
         .cat-svg {
             cursor: pointer;
             position: absolute;
-            bottom: 32px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -374,9 +374,8 @@
             width: 50px;
             height: 14px;
             position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 12px;
+            right: 32px;
             z-index: 1;
         }
 
@@ -2080,9 +2079,10 @@
             path.setAttribute("d", "M12 3c-1.2 0-2.4.6-3.3 1.7C6.7 6.8 5.7 10.3 6 13.5c.1.9.4 1.7.9 2.5L3.6 19.3c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6l3.3-3.3c.8.5 1.6.8 2.5.9 3.2.3 6.7-.7 8.8-2.7 1.1-.9 1.7-2.1 1.7-3.3 0-3.3-1.8-6.1-5-7.4C14.7 3.3 13.4 3 12 3Zm0 5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1Z");
             treat.appendChild(path);
 
-            // Starting position: center-top of playground
+            // Starting position: right-top above the repositioned bowl
             treat.style.top = "-24px";
-            treat.style.left = "calc(50% - 12px)";
+            treat.style.right = "45px";
+            treat.style.left = "auto";
             playground.appendChild(treat);
 
             // Head rotates up to look at food
@@ -2090,7 +2090,7 @@
 
             // Fall animation using smooth intervals
             let topPos = -24;
-            const bowlY = 175; // Y coordinate where bowl sits (approximate bottom)
+            const bowlY = 194; // Y coordinate where bowl sits (lower down on the floor)
             const speed = 6;
 
             const fallInterval = setInterval(() => {
@@ -2105,7 +2105,8 @@
                     treat.remove();
 
                     // Sparkle effect
-                    spawnSparkle(bowlY + 6);
+                    const playWidth = playground.clientWidth;
+                    spawnSparkle(playWidth - 57, bowlY + 6);
 
                     // Re-enable feed button
                     feedBtn.disabled = false;
@@ -2137,7 +2138,7 @@
         }
 
         // Sparkle burst helper
-        function spawnSparkle(yCoord) {
+        function spawnSparkle(xCoord, yCoord) {
             const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             sparkle.setAttribute("class", "sparkle-svg");
             sparkle.setAttribute("viewBox", "0 0 24 24");
@@ -2148,7 +2149,7 @@
             sparkle.appendChild(path);
 
             sparkle.style.top = `${yCoord - 16}px`;
-            sparkle.style.left = "calc(50% - 16px)";
+            sparkle.style.left = `${xCoord - 16}px`;
             playground.appendChild(sparkle);
 
             setTimeout(() => {
@@ -2320,7 +2321,7 @@
         function checkSwatInteraction() {
             // If yarn ball coordinates are close to the cat paws/body
             const distPawX = Math.abs(yarnPos.x - 50); // Cat center is 50%
-            const distPawY = Math.abs(yarnPos.y - 70); // Paw row is ~70%
+            const distPawY = Math.abs(yarnPos.y - 81); // Paw row is ~81%
 
             if (distPawX < 20 && distPawY < 20) {
                 // Swat triggers!
@@ -2337,7 +2338,7 @@
                 const rect = playground.getBoundingClientRect();
                 const starX = (yarnPos.x / 100) * rect.width;
                 const starY = (yarnPos.y / 100) * rect.height;
-                spawnSparkle(starY);
+                spawnSparkle(starX, starY);
 
                 // Quick tail swing
                 const tail = document.querySelector(".cat-tail");
